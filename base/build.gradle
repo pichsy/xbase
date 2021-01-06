@@ -20,10 +20,10 @@ android {
 
 dependencies {
     api fileTree(dir: 'libs', include: ['*.jar'])
-    api 'androidx.appcompat:appcompat:1.2.0'
-    api 'com.github.pichsy:xdialog:1.1'
-    api 'com.github.pichsy:xbaseutils:1.0'
-    api 'com.github.pichsy:xskinloader:1.0'
+    implementation 'androidx.appcompat:appcompat:1.2.0'
+    compileOnly 'com.github.pichsy:xbaseutils:1.0'
+    compileOnly 'com.github.pichsy:xdialog:1.1'
+    compileOnly 'com.github.pichsy:xskinloader:1.0'
 
 }
 

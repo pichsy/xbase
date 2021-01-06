@@ -13,8 +13,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import com.pichs.common.uikit.dialog.ProgressCommonDialog;
-import com.pichs.common.utils.utils.ToastUtils;
+import com.pichs.xdialog.loading.ProgressCommonDialog;
 
 public abstract class BaseFragment extends Fragment {
 
@@ -89,12 +88,6 @@ public abstract class BaseFragment extends Fragment {
         if (TextUtils.isEmpty(msg))
             return false;
         return true;
-    }
-
-    protected void toast(String msg) {
-        if (NOTNULL(msg)) {
-            ToastUtils.toast(mActivity, msg);
-        }
     }
 
     protected ProgressCommonDialog mProgressCommonDialog;
