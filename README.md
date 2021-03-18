@@ -21,11 +21,11 @@ XBaseViewModel
 
 
 ### 引入控件
-最新版本:  [![](https://jitpack.io/v/pichsy/xbase.svg)](https://jitpack.io/#pichsy/xbase)
+最新版本:  [![](https://jitpack.io/v/com.gitee.pichs/xbase.svg)](https://jitpack.io/#com.gitee.pichs/xbase)
 
         
         
-       implementation 'com.github.pichsy:xbase:1.0'
+       implementation 'com.gitee.pichs:xbase:1.0'
        
 
 ## 用法
