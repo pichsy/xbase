@@ -1,3 +1,7 @@
+# 最新地址, 该项目已移到gitee
+# [https://gitee.com/pichs/xbase](https://gitee.com/pichs/xbase)
+
+
 # xbase
 最喜欢的base控件
 BaseActivity
