@@ -25,7 +25,7 @@ XBaseViewModel
 
         
         
-       implementation 'com.gitee.pichs:xbase:1.0'
+       implementation 'com.gitee.pichs:xbase:1.1'
        
 
 ## 用法

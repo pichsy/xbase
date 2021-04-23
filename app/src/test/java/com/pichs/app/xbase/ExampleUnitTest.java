@@ -1,4 +1,4 @@
-package com.pichs.app.xwidget;
+package com.pichs.app.xbase;
 
 import org.junit.Test;
 
