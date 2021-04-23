@@ -32,25 +32,25 @@ dependencies {
 
     implementation 'androidx.appcompat:appcompat:1.2.0'
 
-    implementation 'com.gitee.pichs:xwidget:1.20'
+    implementation 'com.gitee.pichs:xwidget:1.25'
     // 1.0.3 UI框架
-    implementation 'com.gitee.pichs:xuikit:1.8'
+    implementation 'com.gitee.pichs:xuikit:1.15'
     // 0.5 自定义弹窗
     implementation 'com.gitee.pichs:xdialog:1.4'
     // 0.0 基础工具类
-    implementation 'com.gitee.pichs:xbaseutils:1.4'
+    implementation 'com.gitee.pichs:xbaseutils:1.6'
     // 日志工具类
-    implementation 'com.gitee.pichs:xlog:1.1'
+    implementation 'com.gitee.pichs:xlog:1.2'
         // 1.0.2 网咯请求框架
-    implementation 'com.gitee.pichs:xhttp:1.0'
+    implementation 'com.gitee.pichs:xhttp:2.0'
     // 1.0.1 Q弹的动态开关
-    implementation 'com.gitee.pichs:switcher:1.0'
-    implementation 'com.google.android.material:material:1.2.1'
+    implementation 'com.gitee.pichs:switcher:1.1'
+    implementation 'com.google.android.material:material:1.3.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
-    testImplementation 'junit:junit:4.13.1'
+    testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
     implementation project(':base')
     implementation 'com.gitee.pichs:xdialog:1.4'
-    implementation 'com.gitee.pichs:xskinloader:1.0'
+    implementation 'com.gitee.pichs:xskinloader:1.1'
 }

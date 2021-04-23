@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import androidx.annotation.IdRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
 import com.pichs.xdialog.loading.ProgressCommonDialog;
@@ -20,6 +21,7 @@ public abstract class BaseFragment extends Fragment {
     protected View mRootView;
     protected Context mContext;
     protected Activity mActivity;
+    protected AppCompatActivity mAppCompatActivity;
     protected BaseActivity mBaseActivity;
     protected LayoutInflater inflater;
     protected ViewGroup container;
@@ -37,6 +39,9 @@ public abstract class BaseFragment extends Fragment {
         this.container = container;
         if (mRootView == null) {
             mActivity = getActivity();
+            if (mActivity != null && mActivity instanceof AppCompatActivity) {
+                mAppCompatActivity = (AppCompatActivity) mActivity;
+            }
             if (mActivity != null && mActivity instanceof BaseActivity) {
                 mBaseActivity = (BaseActivity) mActivity;
             }
