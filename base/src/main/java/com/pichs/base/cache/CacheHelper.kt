@@ -7,11 +7,7 @@ import java.io.File
 /**
  * MMKV 封装
  */
-class CacheHelper private constructor() : BaseMMKVHelper() {
-
-    override fun getMMapID(): String? {
-        return null
-    }
+class CacheHelper private constructor() : BaseMMKVHelper(null) {
 
     companion object {
         private lateinit var application: Application

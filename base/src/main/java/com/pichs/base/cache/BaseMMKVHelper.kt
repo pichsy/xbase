@@ -4,9 +4,7 @@ import android.os.Parcelable
 import com.tencent.mmkv.MMKV
 import org.jetbrains.annotations.NotNull
 
-abstract class BaseMMKVHelper {
-
-    abstract fun getMMapID(): String?
+abstract class BaseMMKVHelper constructor(val mmapID: String?) {
 
     private var kv: MMKV? = null
 
@@ -14,10 +12,10 @@ abstract class BaseMMKVHelper {
      * 创建MMKV对象
      */
     init {
-        kv = if (getMMapID() == null) {
+        kv = if (mmapID == null) {
             getDefaultMMKV()
         } else {
-            getMMKVWithID(getMMapID()!!)
+            getMMKVWithID(mmapID)
         }
     }
 

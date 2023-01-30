@@ -5,11 +5,7 @@ import com.pichs.base.cache.BaseMMKVHelper
 /**
  * MMKV 封装
  */
-class CacheTestHelper private constructor() : BaseMMKVHelper() {
-
-    override fun getMMapID(): String? {
-        return "xbase_test_not_sssjjaqajsd"
-    }
+class CacheTestHelper private constructor() : BaseMMKVHelper("xbase_test_not_sssjjaqajsd") {
 
     companion object {
         // 单利模式
