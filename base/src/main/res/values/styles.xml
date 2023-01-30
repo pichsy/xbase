@@ -1,12 +1,3 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
-    <style name="XBaseAppTheme0"  parent="Theme.AppCompat.Light.NoActionBar">
-        <item name="colorPrimary">@color/xbase_app_theme_color</item>
-        <item name="colorPrimaryDark">@color/xbase_app_theme_color</item>
-        <item name="colorAccent">@color/xbase_app_theme_color</item>
-    </style>
-
-    <color name="xbase_app_theme_color">#ffffff</color>
-
 </resources>
