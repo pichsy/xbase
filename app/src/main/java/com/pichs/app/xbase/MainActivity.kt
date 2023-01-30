@@ -7,6 +7,7 @@ import com.pichs.base.binding.BindingActivity
 import com.pichs.base.cache.CacheHelper
 import com.pichs.base.clickhelper.ClickHelper
 import com.pichs.base.clickhelper.MultiClickHelper
+import com.pichs.base.imageloader.ImageLoader
 
 class MainActivity : BindingActivity<ActivityMainBinding>() {
     override fun beforeOnCreate(savedInstanceState: Bundle?) {}
@@ -16,15 +17,23 @@ class MainActivity : BindingActivity<ActivityMainBinding>() {
         }
 
         ClickHelper.clicks(binding.btn1) {
-            CacheTestHelper.get().setString("存储一个字符串","我是老da")
-//            CacheHelper.get().setString("存储一个字符串","我是老六")
-            Toast.makeText(applicationContext, "单点", Toast.LENGTH_SHORT).show()
         }
 
         MultiClickHelper.clicks(binding.btn2).setTimes(1).call { times ->
-//           val str=  CacheHelper.get().getString("存储一个字符串","我是老八")
-           val str=  CacheTestHelper.get().getString("存储一个字符串","我是老i9")
-            Toast.makeText(applicationContext, "点了：${times}次+$str", Toast.LENGTH_SHORT).show()
         }
+
+        ImageLoader.with()
+            .load("https://img0.baidu.com/it/u=189649806,2789154204&fm=253&fmt=auto&app=138&f=JPEG?w=500&h=500")
+            .diskCacheStrategy(ImageLoader.DiskCacheStrategy.ALL)
+            .into(binding.ivImg)
+
+        ImageLoader.with()
+            .load("https://img0.baidu.com/it/u=2335072147,3242329848&fm=253&fmt=auto&app=138&f=JPEG?w=500&h=500")
+            .into(binding.ivMmm)
+
+        ImageLoader.with()
+            .load("https://img2.baidu.com/it/u=3170243357,3097706939&fm=253&fmt=auto&app=120&f=JPEG?w=1280&h=800")
+            .circleCrop()
+            .into(binding.ivCircle)
     }
 }
