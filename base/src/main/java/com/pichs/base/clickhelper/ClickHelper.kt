@@ -1,5 +1,6 @@
 package com.pichs.base.clickhelper
 
+import android.annotation.SuppressLint
 import android.graphics.Rect
 import android.view.View.OnTouchListener
 import android.view.MotionEvent
@@ -69,10 +70,10 @@ object ClickHelper {
     /**
      * 点击事件防重，单击，非全局
      */
-    private fun clicks(
+    fun clicks(
         vararg views: View,
         playAudio: Boolean = IS_PLAY_SOUND_DEFAULT,
-        listener: View.OnClickListener? = null
+        listener: View.OnClickListener?
     ) {
         if (views.isEmpty()) return
         val lis: OnDebouncingClickListener =
@@ -132,14 +133,18 @@ object ClickHelper {
 
 }
 
-abstract class OnDebouncingClickListener(private val mDuration: Long) : View.OnClickListener {
+abstract class OnDebouncingClickListener(var mDuration: Long) : View.OnClickListener {
+
+    @Volatile
     private var lastClickTime = 0L
     abstract fun onViewClicked(v: View?)
+
     override fun onClick(v: View) {
         if (isFastClick()) return
-        onClick(v)
+        onViewClicked(v)
     }
 
+    @Synchronized
     private fun isFastClick(): Boolean {
         val curMills = System.currentTimeMillis()
         if (curMills - lastClickTime >= mDuration) {
@@ -152,6 +157,7 @@ abstract class OnDebouncingClickListener(private val mDuration: Long) : View.OnC
 
 class OnScaleTouchListener private constructor() : OnTouchListener {
 
+    @SuppressLint("ClickableViewAccessibility")
     override fun onTouch(v: View, event: MotionEvent): Boolean {
         val action = event.action
         if (action == MotionEvent.ACTION_DOWN) {

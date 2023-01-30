@@ -14,8 +14,8 @@ object ClickPlayer {
     }
 
     fun play() {
-        musicPath?.let {
-            SoundPoolPlayer.openAssetsMusic(it)
+        if (!musicPath.isNullOrEmpty() || !musicPath.isNullOrBlank()) {
+            SoundPoolPlayer.openAssetsMusic(musicPath!!)
         }
     }
 }
