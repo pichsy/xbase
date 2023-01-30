@@ -2,13 +2,13 @@
 
 - 基于kotlin java混编
 
-1. BaseActivity
-2. BaseFragment
-3. LazyFragment
-4. 使用的utils工具等
+1. BindingActivity
+2. BindingFragment
+3. BindingLazyFragment
+4. 使用的utils工具等，点击防重，多次点击监听，点击音效，常用工具等
 5. 此框架用于快速开发，基础模板。
-6. 栈的管理 StackManager， 继承BaseActivity即可
-7. 栈的管理 也可以参考BaseActivity, 继承IStackChild 实现方法即可，灵活
+6. 栈的管理 StackManager， 继承BindingActivity即可
+7. 栈的管理 也可以参考 BindingActivity, 让自己的基类（eg:xxxBaseActivity）继承IStackChild 实现方法即可，灵活
 
 
 ### gradle引入
