@@ -20,14 +20,28 @@
         android:id="@+id/btn1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="单点"
+        android:text="单个防重点击"
+        android:textAllCaps="false" />
+
+ <Button
+        android:id="@+id/btn4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="全局防重点击1"
+        android:textAllCaps="false" />
+
+ <Button
+        android:id="@+id/btn3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="全局防重点击2"
         android:textAllCaps="false" />
 
     <Button
         android:id="@+id/btn2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="多点"
+        android:text="多次点击"
         android:textAllCaps="false" />
 
     <com.pichs.common.widget.cardview.XCardImageView

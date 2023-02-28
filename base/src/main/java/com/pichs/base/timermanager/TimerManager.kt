@@ -1,4 +1,4 @@
-package com.pichs.base.timermanager
+package com.gankao.common.timermanager
 
 import android.os.Handler
 import android.os.Looper
@@ -13,13 +13,14 @@ import java.util.*
 class TimerManager constructor(
     var delay: Long = 0L,
     var period: Long = 1000L,
-    var times: Int = 0,
+    val times: Int = 0,
     var onPause: () -> Unit = {},
     var onResume: () -> Unit = {},
     var onCancel: () -> Unit = {},
     var onFinish: () -> Unit = {},
     var onProgress: (Int) -> Unit = {},
 ) {
+
     private var mTotalTimes = 0
     private var timerTask: TimerTask? = null
     private var timer: Timer? = null
@@ -49,7 +50,6 @@ class TimerManager constructor(
     }, {
         callback?.onProgress(it)
     })
-
 
     init {
         handler = object : Handler(Looper.getMainLooper()) {
@@ -93,8 +93,7 @@ class TimerManager constructor(
 
     private fun startTimer(reset: Boolean) {
         if (reset) {
-            timesCount = 0
-            isFinishing = false
+            resetTimer()
         }
         if (timerTask == null) {
             timerTask = object : TimerTask() {
@@ -153,6 +152,17 @@ class TimerManager constructor(
         handler?.sendEmptyMessage(_CANCELED)
         isFinishing = false
         timesCount = 0
+        mTotalTimes = if (times <= 0) 0 else times
+    }
+
+    private fun resetTimer() {
+        timerTask?.cancel()
+        timer?.cancel()
+        timer = null
+        timerTask = null
+        isFinishing = false
+        timesCount = 0
+        mTotalTimes = if (times <= 0) 0 else times
     }
 
     private fun finishTimer() {
@@ -164,7 +174,9 @@ class TimerManager constructor(
         handler?.sendEmptyMessage(_FINISHED)
         isFinishing = false
         timesCount = 0
+        mTotalTimes = if (times <= 0) 0 else times
     }
+
 }
 
 fun interface OnTimerCallback {

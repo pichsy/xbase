@@ -1,7 +1,7 @@
 package com.pichs.base.clickhelper
 
-import com.pichs.base.timermanager.TimerManager
 import android.view.View
+import com.gankao.common.timermanager.TimerManager
 import com.pichs.base.utils.ThreadUtils
 
 /**

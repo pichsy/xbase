@@ -6,20 +6,32 @@ import com.pichs.app.xbase.databinding.ActivityMainBinding
 import com.pichs.base.binding.BindingActivity
 import com.pichs.base.cache.CacheHelper
 import com.pichs.base.clickhelper.ClickHelper
+import com.pichs.base.clickhelper.FastClickHelper
 import com.pichs.base.clickhelper.MultiClickHelper
 import com.pichs.base.imageloader.ImageLoader
+import kotlin.text.Typography.times
 
 class MainActivity : BindingActivity<ActivityMainBinding>() {
     override fun beforeOnCreate(savedInstanceState: Bundle?) {}
     override fun afterOnCreate() {
         binding.btn.setOnClickListener {
-            Toast.makeText(applicationContext, "按钮", Toast.LENGTH_SHORT).show()
+            Toast.makeText(applicationContext, "普通点击0", Toast.LENGTH_SHORT).show()
         }
 
         ClickHelper.clicks(binding.btn1) {
+            Toast.makeText(applicationContext, "单个防重点击1", Toast.LENGTH_SHORT).show()
+        }
+
+        FastClickHelper.clicks(binding.btn3) {
+            Toast.makeText(applicationContext, "全局防重点击3", Toast.LENGTH_SHORT).show()
+        }
+
+        FastClickHelper.clicks(binding.btn4) {
+            Toast.makeText(applicationContext, "全局防重点击4", Toast.LENGTH_SHORT).show()
         }
 
         MultiClickHelper.clicks(binding.btn2).setTimes(1).call { times ->
+            Toast.makeText(applicationContext, "点击了${times}次", Toast.LENGTH_SHORT).show()
         }
 
         ImageLoader.with()
