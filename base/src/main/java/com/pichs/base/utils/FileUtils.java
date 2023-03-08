@@ -197,17 +197,17 @@ public class FileUtils {
         return sbf.toString();
     }
 
-    public static boolean isFileExist(String jsonPath) {
-        if (jsonPath == null) return false;
-        if (jsonPath.length() == 0 || jsonPath.trim().length() == 0) return false;
-        File file = new File(jsonPath);
+    public static boolean isFileExist(String filePath) {
+        if (filePath == null) return false;
+        if (filePath.length() == 0 || filePath.trim().length() == 0) return false;
+        File file = new File(filePath);
         return file.exists() && file.isFile();
     }
 
-    public static boolean isDirExist(String jsonPath) {
-        if (jsonPath == null) return false;
-        if (jsonPath.length() == 0 || jsonPath.trim().length() == 0) return false;
-        File file = new File(jsonPath);
+    public static boolean isDirExist(String filePath) {
+        if (filePath == null) return false;
+        if (filePath.length() == 0 || filePath.trim().length() == 0) return false;
+        File file = new File(filePath);
         return file.exists() && file.isDirectory();
     }
 }
