@@ -20,11 +20,12 @@ object SoundPoolPlayer {
         init()
     }
 
+    @JvmStatic
     fun init(application: Application) {
         app = application
     }
 
-    fun init() {
+    private fun init() {
         if (isInit) return
         isInit = true
         soundPool = getSoundPool(20)
