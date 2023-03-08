@@ -141,16 +141,33 @@ abstract class BaseMMKVHelper constructor(val mmapID: String?) {
     }
 
     fun <T> setObject(@NotNull key: String, obj: T?) {
-        val str = GsonUtils.toJson(obj)
-        kv?.encode(key, str)
+        if (obj != null) {
+            val str = GsonUtils.toJson(obj)
+            setString(key, str)
+        } else {
+            setString(key, null)
+        }
+    }
+
+
+    @JvmOverloads
+    fun <T> getObject(key: String, clazz: Class<T>, defaultValue: T? = null): T? {
+        getString(key, null)?.let { str ->
+            try {
+                return GsonUtils.fromJson(str, clazz) ?: defaultValue
+            } catch (e: RuntimeException) {
+                return defaultValue
+            }
+        }
+        return defaultValue
     }
 
     @JvmOverloads
-    fun <T> getObject(key: String, defaultValue: T? = null): T? {
-        kv?.getString(key, null)?.let { value ->
+    fun <T> getObject(key: String, typeToken: TypeToken<T>, defaultValue: T? = null): T? {
+        getString(key, null)?.let { str ->
             try {
-                return GsonUtils.fromJson(value, object : TypeToken<T>() {}) ?: defaultValue
-            } catch (e: Exception) {
+                return GsonUtils.fromJson(str, typeToken) ?: defaultValue
+            } catch (e: RuntimeException) {
                 return defaultValue
             }
         }

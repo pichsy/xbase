@@ -2,6 +2,7 @@ package com.pichs.app.xbase
 
 import android.os.Bundle
 import android.widget.Toast
+import com.google.gson.reflect.TypeToken
 import com.pichs.app.xbase.databinding.ActivityMainBinding
 import com.pichs.base.binding.BindingActivity
 import com.pichs.base.cache.CacheHelper
@@ -24,9 +25,8 @@ class MainActivity : BindingActivity<ActivityMainBinding>() {
         }
 
         ClickHelper.clicks(binding.btn1) {
-            Toast.makeText(applicationContext, "单个防重点击1", Toast.LENGTH_SHORT).show()
-            val abb = CacheHelper.get().getObject<AAB>("mmm_obj", null)
-            Toast.makeText(applicationContext, GsonUtils.toJson(abb), Toast.LENGTH_SHORT).show()
+            val aab = CacheHelper.get().getObject("mmm_obj", AAB::class.java, AAB())
+            Toast.makeText(applicationContext, aab?.title + aab?.name, Toast.LENGTH_SHORT).show()
         }
 
         FastClickHelper.clicks(binding.btn3) {
