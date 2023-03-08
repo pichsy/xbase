@@ -1,11 +1,9 @@
 package com.pichs.base.clickhelper
 
-import android.annotation.SuppressLint
 import android.graphics.Rect
-import android.view.View.OnTouchListener
-import android.view.MotionEvent
 import android.view.TouchDelegate
 import android.view.View
+import com.pichs.base.clickhelper.ClickPlayer.IS_PLAY_SOUND_DEFAULT
 
 /**
  * 点击事件处理工具
@@ -13,59 +11,9 @@ import android.view.View
 object ClickHelper {
 
     /**
-     * 是否 默认播放 点击音效，默认关闭，
-     * 可在application中初始化 修改默认，改为true后，则默认有点击音效
-     * 再次之前还需要进行 音效的初始化。[ClickPlayer.initSound] ("assetsPathName.mp3")
-     * 当然，代码也可以设置 不播放音效。
-     */
-    var IS_PLAY_SOUND_DEFAULT = false
-
-    /**
-     * 点击放大
-     */
-    const val PRESSED_VIEW_SCALE_BIGGER_VALUE = -0.06f
-
-    /**
-     * 点击缩小， 默认
-     */
-    const val PRESSED_VIEW_SCALE_SMALLER_VALUE = 0.06f
-
-    // 其他参数，后期会追加到 xwidget中，使用属性设置，更加优雅
-    const val PRESSED_VIEW_SCALE_TAG = -1
-
-    /**
      * 默认点击间隔 800 ms
      */
     private const val CLICK_INTERVAL_DEFAULT_VALUE = 800L
-
-    /**
-     * 按压放大，或者缩小
-     */
-    fun pressedViewScale(views: Array<View>?, scaleFactors: FloatArray?) {
-        if (views == null || views.isEmpty()) {
-            return
-        }
-        for (i in views.indices) {
-            if (scaleFactors == null || i >= scaleFactors.size) {
-                pressedViewScale(PRESSED_VIEW_SCALE_SMALLER_VALUE, views[i])
-            } else {
-                pressedViewScale(scaleFactors[i], views[i])
-            }
-        }
-    }
-
-    /**
-     * 按压放大，或者缩小，批量的统一比例
-     */
-    fun pressedViewScale(scaleFactor: Float, vararg views: View) {
-        if (views.isEmpty()) {
-            return
-        }
-        for (view in views) {
-            view.setTag(PRESSED_VIEW_SCALE_TAG, scaleFactor)
-            view.setOnTouchListener(OnScaleTouchListener.getInstance())
-        }
-    }
 
     /**
      * 点击事件防重，单击，非全局
@@ -152,42 +100,5 @@ abstract class OnDebouncingClickListener(var mDuration: Long) : View.OnClickList
             return false
         }
         return true
-    }
-}
-
-class OnScaleTouchListener private constructor() : OnTouchListener {
-
-    @SuppressLint("ClickableViewAccessibility")
-    override fun onTouch(v: View, event: MotionEvent): Boolean {
-        val action = event.action
-        if (action == MotionEvent.ACTION_DOWN) {
-            processScale(v, true)
-        } else if (action == MotionEvent.ACTION_UP
-            || action == MotionEvent.ACTION_CANCEL
-        ) {
-            processScale(v, false)
-        }
-        return false
-    }
-
-    private fun processScale(view: View, isDown: Boolean) {
-        val tag = view.getTag(ClickHelper.PRESSED_VIEW_SCALE_TAG) as? Float ?: return
-        val value: Float = if (isDown) 1f + tag else 1f
-        view.animate()
-            .scaleX(value)
-            .scaleY(value)
-            .setDuration(200)
-            .start()
-    }
-
-    private object LazyHolder {
-        val instance by lazy(LazyThreadSafetyMode.SYNCHRONIZED) { OnScaleTouchListener() }
-    }
-
-    companion object {
-        @JvmStatic
-        fun getInstance(): OnScaleTouchListener {
-            return LazyHolder.instance
-        }
     }
 }

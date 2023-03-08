@@ -9,17 +9,15 @@ import com.pichs.base.utils.ThreadUtils
  * 可设置多秒（s > Int）内，点击次数监听。
  */
 object MultiClickHelper {
-
-    fun clicks(view: View): MultiClickHolder {
-        return MultiClickHolder(view)
+    fun clicks(view: View): MCLHolder {
+        return MCLHolder(view)
     }
-
 }
 
 /**
- * 多次店家事件的持有类
+ * 多次点击事件响应的持有类
  */
-class MultiClickHolder(private val mView: View) {
+class MCLHolder(private val mView: View) {
     private var clickTimes = 0
     private var times = 1
 
@@ -34,9 +32,9 @@ class MultiClickHolder(private val mView: View) {
      * 设置点击事件的时间总长，也就是多少秒结束
      *
      * @param time 1s 单位 s 默认1s
-     * @return [MultiClickHolder]
+     * @return [MCLHolder]
      */
-    fun setTimes(time: Int): MultiClickHolder {
+    fun setTimes(time: Int): MCLHolder {
         times = time
         return this
     }
@@ -45,9 +43,9 @@ class MultiClickHolder(private val mView: View) {
      * 点击事件触发后锁定时间内不触发点击事件，锁定点击事件时间
      *
      * @param lockedTime lockedTime
-     * @return [MultiClickHolder]
+     * @return [MCLHolder]
      */
-    fun setLockedTime(lockedTime: Long): MultiClickHolder {
+    fun setLockedTime(lockedTime: Long): MCLHolder {
         this.lockedTime = lockedTime
         return this
     }

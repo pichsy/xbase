@@ -15,7 +15,6 @@ import com.bumptech.glide.request.RequestOptions;
  * 图片加载
  */
 public class ImageLoader {
-
     @IntDef({
             DiskCacheStrategy.NONE,
             DiskCacheStrategy.ALL,

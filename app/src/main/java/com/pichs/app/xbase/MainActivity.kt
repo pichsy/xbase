@@ -2,16 +2,14 @@ package com.pichs.app.xbase
 
 import android.os.Bundle
 import android.widget.Toast
-import com.google.gson.reflect.TypeToken
 import com.pichs.app.xbase.databinding.ActivityMainBinding
 import com.pichs.base.binding.BindingActivity
 import com.pichs.base.cache.CacheHelper
 import com.pichs.base.clickhelper.ClickHelper
+import com.pichs.base.clickhelper.ComboClickHelper
 import com.pichs.base.clickhelper.FastClickHelper
 import com.pichs.base.clickhelper.MultiClickHelper
 import com.pichs.base.imageloader.ImageLoader
-import com.pichs.base.utils.GsonUtils
-import kotlin.text.Typography.times
 
 class MainActivity : BindingActivity<ActivityMainBinding>() {
     override fun beforeOnCreate(savedInstanceState: Bundle?) {}
@@ -39,6 +37,10 @@ class MainActivity : BindingActivity<ActivityMainBinding>() {
 
         MultiClickHelper.clicks(binding.btn2).setTimes(1).call { times ->
             Toast.makeText(applicationContext, "点击了${times}次", Toast.LENGTH_SHORT).show()
+        }
+
+        ComboClickHelper.clicks(binding.btnCombo).setIntervalTime(300).call { times ->
+            binding.btnCombo.text = "$times"
         }
 
         ImageLoader.with()
