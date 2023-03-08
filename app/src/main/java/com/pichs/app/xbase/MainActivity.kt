@@ -35,7 +35,7 @@ class MainActivity : BindingActivity<ActivityMainBinding>() {
             Toast.makeText(applicationContext, "全局防重点击4", Toast.LENGTH_SHORT).show()
         }
 
-        MultiClickHelper.clicks(binding.btn2).setTimes(1).call { times ->
+        MultiClickHelper.clicks(binding.btn2).setTimeMills(1000).call { times ->
             Toast.makeText(applicationContext, "点击了${times}次", Toast.LENGTH_SHORT).show()
         }
 

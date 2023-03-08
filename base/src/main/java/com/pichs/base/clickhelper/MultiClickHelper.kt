@@ -3,6 +3,7 @@ package com.pichs.base.clickhelper
 import android.view.View
 import com.gankao.common.timermanager.TimerManager
 import com.pichs.base.utils.ThreadUtils
+import kotlin.text.Typography.times
 
 /**
  * 多次点击帮助类。
@@ -19,13 +20,12 @@ object MultiClickHelper {
  */
 class MCLHolder(private val mView: View) {
     private var clickTimes = 0
-    private var times = 1
+    private var mTimeMills = 1000
 
     // 锁定时间，触发点击事件后，该时间段不触发点击事件。
     private var lockedTime = 1000L
     private var isRunning = false
     private var mListener: OnMultiClickListener? = null
-    private var mTimerManager: TimerManager? = null
     private var locked = false
 
     /**
@@ -34,8 +34,8 @@ class MCLHolder(private val mView: View) {
      * @param time 1s 单位 s 默认1s
      * @return [MCLHolder]
      */
-    fun setTimes(time: Int): MCLHolder {
-        times = time
+    fun setTimeMills(timeMills: Int): MCLHolder {
+        mTimeMills = timeMills
         return this
     }
 
@@ -56,7 +56,6 @@ class MCLHolder(private val mView: View) {
      * @param onMultiClickListener [OnMultiClickListener]
      */
     fun call(onMultiClickListener: OnMultiClickListener?) {
-        init()
         mListener = onMultiClickListener
         mView.setOnClickListener(View.OnClickListener aa@{
             if (locked) {
@@ -68,18 +67,15 @@ class MCLHolder(private val mView: View) {
             }
             if (!isRunning) {
                 clickTimes = 1
-                mTimerManager?.startTimer()
                 isRunning = true
+                callbackDelay()
             }
         })
     }
 
-    /**
-     * 初始化计时器
-     */
-    private fun init() {
-        if (mTimerManager == null) {
-            mTimerManager = TimerManager(times = times, onFinish = {
+    private fun callbackDelay() {
+        if (clickTimes == 1) {
+            ThreadUtils.postDelay(mTimeMills.toLong()) {
                 locked = true
                 // 时间到 ,点击事件回调
                 mListener?.onClicked(clickTimes)
@@ -88,7 +84,7 @@ class MCLHolder(private val mView: View) {
                     isRunning = false
                     locked = false
                 }
-            })
+            }
         }
     }
 }
