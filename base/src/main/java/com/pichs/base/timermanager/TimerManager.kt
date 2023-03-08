@@ -136,8 +136,9 @@ class TimerManager constructor(
     }
 
     fun resumeTimer() {
-        // 结束了，不再继续了。
-        if (mTotalTimes <= timesCount) {
+        // 结束了，不再继续了。倒计时的情况下，进行判断处理。
+        if (mTotalTimes in 1..timesCount) {
+            finishTimer()
             return
         }
         handler?.sendEmptyMessage(_RESUME)

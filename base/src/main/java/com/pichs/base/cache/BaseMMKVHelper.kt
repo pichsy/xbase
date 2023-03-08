@@ -1,12 +1,38 @@
 package com.pichs.base.cache
 
+import android.app.Application
 import android.os.Parcelable
+import com.google.gson.reflect.TypeToken
+import com.pichs.base.utils.GsonUtils
 import com.tencent.mmkv.MMKV
 import org.jetbrains.annotations.NotNull
+import java.io.File
+import java.io.Serializable
 
 abstract class BaseMMKVHelper constructor(val mmapID: String?) {
 
     private var kv: MMKV? = null
+
+    companion object {
+        private lateinit var application: Application
+
+        /**
+         * 初始化MMKV，在Application的 onCreate 中初始化
+         */
+        @JvmStatic
+        fun init(app: Application) {
+            application = app
+            MMKV.initialize(application, "${app.filesDir.absolutePath}${File.separator}mmkv")
+        }
+
+        /**
+         * 获取应用的上下文
+         * @return Application
+         */
+        fun getApplication(): Application {
+            return application
+        }
+    }
 
     /**
      * 创建MMKV对象
@@ -114,7 +140,24 @@ abstract class BaseMMKVHelper constructor(val mmapID: String?) {
         return kv?.decodeStringSet(key, defValue) ?: defValue
     }
 
-    fun containsKey(key: String): Boolean {
+    fun <T> setObject(@NotNull key: String, obj: T?) {
+        val str = GsonUtils.toJson(obj)
+        kv?.encode(key, str)
+    }
+
+    @JvmOverloads
+    fun <T> getObject(key: String, defaultValue: T? = null): T? {
+        kv?.getString(key, null)?.let { value ->
+            try {
+                return GsonUtils.fromJson(value, object : TypeToken<T>() {}) ?: defaultValue
+            } catch (e: Exception) {
+                return defaultValue
+            }
+        }
+        return defaultValue
+    }
+
+    fun containsKey(@NotNull key: String): Boolean {
         return kv?.containsKey(key) ?: false
     }
 
@@ -126,15 +169,15 @@ abstract class BaseMMKVHelper constructor(val mmapID: String?) {
         return kv?.count() ?: 0L
     }
 
-    fun remove(key: String) {
+    fun remove(@NotNull key: String) {
         kv?.remove(key)
     }
 
-    fun removeValueForKey(key: String) {
+    fun removeValueForKey(@NotNull key: String) {
         kv?.removeValueForKey(key)
     }
 
-    fun removeValuesForKeys(keys: Array<String>) {
+    fun removeValuesForKeys(@NotNull keys: Array<String>) {
         kv?.removeValuesForKeys(keys)
     }
 
@@ -144,6 +187,10 @@ abstract class BaseMMKVHelper constructor(val mmapID: String?) {
 
     fun clearAll() {
         kv?.clearAll()
+    }
+
+    fun clearMemoryCache() {
+        kv?.clearMemoryCache()
     }
 
 }

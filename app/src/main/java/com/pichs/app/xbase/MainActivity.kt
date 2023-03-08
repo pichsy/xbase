@@ -9,6 +9,7 @@ import com.pichs.base.clickhelper.ClickHelper
 import com.pichs.base.clickhelper.FastClickHelper
 import com.pichs.base.clickhelper.MultiClickHelper
 import com.pichs.base.imageloader.ImageLoader
+import com.pichs.base.utils.GsonUtils
 import kotlin.text.Typography.times
 
 class MainActivity : BindingActivity<ActivityMainBinding>() {
@@ -16,10 +17,16 @@ class MainActivity : BindingActivity<ActivityMainBinding>() {
     override fun afterOnCreate() {
         binding.btn.setOnClickListener {
             Toast.makeText(applicationContext, "普通点击0", Toast.LENGTH_SHORT).show()
+            val bean = AAB(
+                "你少", "说话"
+            )
+            CacheHelper.get().setObject("mmm_obj", bean)
         }
 
         ClickHelper.clicks(binding.btn1) {
             Toast.makeText(applicationContext, "单个防重点击1", Toast.LENGTH_SHORT).show()
+            val abb = CacheHelper.get().getObject<AAB>("mmm_obj", null)
+            Toast.makeText(applicationContext, GsonUtils.toJson(abb), Toast.LENGTH_SHORT).show()
         }
 
         FastClickHelper.clicks(binding.btn3) {

@@ -1,9 +1,11 @@
 package com.pichs.base.audio
 
+import android.app.Application
 import android.media.AudioAttributes
 import android.media.AudioManager
 import android.media.SoundPool
 import android.os.Build
+import com.pichs.base.cache.BaseMMKVHelper
 import com.pichs.base.cache.CacheHelper
 import com.pichs.base.utils.ThreadUtils
 
@@ -12,10 +14,14 @@ object SoundPoolPlayer {
     private var soundPool: SoundPool? = null
     private var isInit = false
     private var soundIDMap = hashMapOf<String, Int>()
-
+    private var app: Application? = null
 
     init {
         init()
+    }
+
+    fun init(application: Application) {
+        app = application
     }
 
     fun init() {
@@ -47,7 +53,7 @@ object SoundPoolPlayer {
                 }
                 for (path in assetsPath) {
                     if (soundIDMap[path] == null) {
-                        val fd = CacheHelper.getApplication().assets.openFd(path)
+                        val fd = (app ?: BaseMMKVHelper.getApplication()).assets.openFd(path)
                         load(fd, 1)
                         setOnLoadCompleteListener { soundPool, sampleId, status ->
                             soundIDMap[path] = sampleId
@@ -64,7 +70,7 @@ object SoundPoolPlayer {
             init()
             soundPool?.apply {
                 if (soundIDMap[path] == null) {
-                    val fd = CacheHelper.getApplication().assets.openFd(path)
+                    val fd = (app ?: BaseMMKVHelper.getApplication()).assets.openFd(path)
                     load(fd, 1)
                     setOnLoadCompleteListener { sp, soundId, _ ->
                         soundIDMap[path] = soundId
