@@ -6,8 +6,8 @@ import com.pichs.base.utils.ThreadUtils
 import kotlin.text.Typography.times
 
 /**
- * 多次点击帮助类。
- * 可设置多秒（s > Int）内，点击次数监听。
+ * 设置时间内: 多次点击 帮助类。
+ * 可设置多少毫秒内（ms），点击次数监听。
  */
 object MultiClickHelper {
     fun clicks(view: View): MCLHolder {

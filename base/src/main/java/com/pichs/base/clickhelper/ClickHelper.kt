@@ -6,7 +6,11 @@ import android.view.View
 import com.pichs.base.clickhelper.ClickPlayer.IS_PLAY_SOUND_DEFAULT
 
 /**
- * 点击事件处理工具
+ * 点击事件处理工具，
+ * 单个按钮的防重点击事件
+ * 可设置 点击音效
+ * 使用点击音效 需要先初始化 [ClickPlayer] 点击音频播放器
+ * 详见 [ClickPlayer]
  */
 object ClickHelper {
 
