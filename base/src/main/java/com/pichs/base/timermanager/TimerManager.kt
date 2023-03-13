@@ -1,4 +1,4 @@
-package com.gankao.common.timermanager
+package com.pichs.base.timermanager
 
 import android.os.Handler
 import android.os.Looper

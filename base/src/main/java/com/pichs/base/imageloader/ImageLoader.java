@@ -15,6 +15,7 @@ import com.bumptech.glide.request.RequestOptions;
  * 图片加载
  */
 public class ImageLoader {
+
     @IntDef({
             DiskCacheStrategy.NONE,
             DiskCacheStrategy.ALL,
@@ -24,7 +25,7 @@ public class ImageLoader {
     })
     public @interface DiskCacheStrategy {
         int NONE = -1;
-        int ALL = 0;// 全部缓存 默认
+        int ALL = 0;// 全部缓存
         int RESULT = 1;// 剪裁后的图片缓存
         int SOURCE = 2;// 原图缓存
         int AUTO = 3;// 自动
@@ -83,6 +84,7 @@ public class ImageLoader {
         private boolean asGif = false;
         private boolean useAnimationPool = false;
         private T url;
+        private boolean skipMemoryCache = false;
 
         Builder(T url) {
             this.url = url;
@@ -101,6 +103,11 @@ public class ImageLoader {
 
         public Builder<T> error(@DrawableRes int errorHolder) {
             this.errorHolder = errorHolder;
+            return this;
+        }
+
+        public Builder<T> skipMemoryCache(boolean skipMemoryCache) {
+            this.skipMemoryCache = skipMemoryCache;
             return this;
         }
 
@@ -167,8 +174,6 @@ public class ImageLoader {
             if (overrideHeight != 0 && overrideWidth != 0) {
                 requestOptions.override(overrideWidth, overrideHeight);
             }
-
-            // 剪裁类型，居中，圆形居中，适应居中，全部缩小居中，n选1 ，不能共存。
             if (cropType == 1) {
                 requestOptions.centerCrop();
             } else if (cropType == 2) {
@@ -178,6 +183,9 @@ public class ImageLoader {
             } else if (cropType == 4) {
                 requestOptions.centerInside();
             }
+
+            // 是否跳过内存缓存
+            requestOptions.skipMemoryCache(skipMemoryCache);
 
             if (diskCacheStrategy == DiskCacheStrategy.NONE) {
                 requestOptions.diskCacheStrategy(com.bumptech.glide.load.engine.DiskCacheStrategy.NONE);

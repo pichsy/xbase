@@ -1,9 +1,7 @@
 package com.pichs.base.clickhelper
 
 import android.view.View
-import com.gankao.common.timermanager.TimerManager
 import com.pichs.base.utils.ThreadUtils
-import kotlin.text.Typography.times
 
 /**
  * 设置时间内: 多次点击 帮助类。
