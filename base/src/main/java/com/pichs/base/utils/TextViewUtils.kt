@@ -1,7 +1,6 @@
 package com.pichs.base.utils
 
 import android.graphics.Color
-import android.graphics.Paint
 import android.text.SpannableStringBuilder
 import android.view.View
 import android.widget.TextView
@@ -11,11 +10,6 @@ import com.pichs.common.widget.textview.XTouchableSpan
 import com.pichs.common.widget.utils.XDisplayHelper
 
 object TextViewUtils {
-
-    fun setTextViewDeleteLine(view: TextView) {
-        view.paintFlags = view.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
-    }
-
 
     fun setSizeSpan(
         tv: TextView,
@@ -57,6 +51,5 @@ object TextViewUtils {
         )
         tv.text = spanString
     }
-
 
 }
