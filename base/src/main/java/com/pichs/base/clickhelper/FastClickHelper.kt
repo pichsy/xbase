@@ -17,9 +17,23 @@ object FastClickHelper {
     @Volatile
     private var lastClickTime = 0L
 
+    /**
+     * 默认点击间隔 500 ms
+     */
+    private var CLICK_INTERVAL_DEFAULT_VALUE = 500L
+
     init {
         lastClickTime = System.currentTimeMillis()
     }
+
+    /**
+     * 设置防误触 点击间隔
+     * @param interval 间隔时间 单位 ms
+     */
+    fun setClickInterval(@androidx.annotation.IntRange(from = 0) interval: Long) {
+        CLICK_INTERVAL_DEFAULT_VALUE = interval
+    }
+
 
     @JvmStatic
     fun clicks(view: View?, clickListener: View.OnClickListener?) {
@@ -75,7 +89,7 @@ object FastClickHelper {
     @Synchronized
     fun isFastClick(): Boolean {
         val curMills = System.currentTimeMillis()
-        if (curMills - lastClickTime >= 800L) {
+        if (curMills - lastClickTime >= CLICK_INTERVAL_DEFAULT_VALUE) {
             lastClickTime = curMills
             return false
         }

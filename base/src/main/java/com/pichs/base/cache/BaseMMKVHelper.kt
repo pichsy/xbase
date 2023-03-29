@@ -7,7 +7,6 @@ import com.pichs.base.utils.GsonUtils
 import com.tencent.mmkv.MMKV
 import org.jetbrains.annotations.NotNull
 import java.io.File
-import java.io.Serializable
 
 abstract class BaseMMKVHelper constructor(val mmapID: String?) {
 

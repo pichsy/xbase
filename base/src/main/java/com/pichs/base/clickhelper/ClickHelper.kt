@@ -11,13 +11,23 @@ import com.pichs.base.clickhelper.ClickPlayer.IS_PLAY_SOUND_DEFAULT
  * 可设置 点击音效
  * 使用点击音效 需要先初始化 [ClickPlayer] 点击音频播放器
  * 详见 [ClickPlayer]
+ * eg: ClickPlayer.initSound("assetsPathName.mp3", isPlaySoundDefault)
+ * 通过方法设置：点击间隔，默认500ms [setClickInterval]   设置防误触 点击间隔
  */
 object ClickHelper {
 
     /**
-     * 默认点击间隔 800 ms
+     * 默认点击间隔 500 ms
      */
-    private const val CLICK_INTERVAL_DEFAULT_VALUE = 800L
+    private var CLICK_INTERVAL_DEFAULT_VALUE = 500L
+
+    /**
+     * 设置防误触 点击间隔
+     * @param interval 间隔时间 单位 ms
+     */
+    fun setClickInterval(@androidx.annotation.IntRange(from = 0) interval: Long) {
+        CLICK_INTERVAL_DEFAULT_VALUE = interval
+    }
 
     /**
      * 点击事件防重，单击，非全局

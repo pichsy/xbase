@@ -3,8 +3,12 @@ package com.pichs.base.kotlinext
 import android.graphics.Rect
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.Animation
+import android.view.animation.RotateAnimation
+import androidx.annotation.DimenRes
 import androidx.core.view.iterator
-
+import androidx.core.view.updateLayoutParams
+import java.util.*
 
 /**
  * 扩展一下，调用方便
@@ -12,7 +16,6 @@ import androidx.core.view.iterator
 inline fun View.delay(timeMills: Long, crossinline block: () -> Unit) {
     postDelayed({ block() }, timeMills)
 }
-
 
 fun ViewGroup.removeAllExclude(view: View?) {
     if (view == null) {
@@ -93,10 +96,91 @@ fun View.invisible() {
     visibility = View.INVISIBLE
 }
 
-fun View.visible() {
-    visibility = View.VISIBLE
-}
-
 fun View.gone() {
     visibility = View.GONE
+}
+
+fun View.toggleVisibility(): View {
+    visibility = if (visibility == View.VISIBLE) {
+        View.GONE
+    } else {
+        View.VISIBLE
+    }
+    return this
+}
+
+
+/**
+ *
+ * @receiver View
+ * @param resIdHeight Int?
+ * @param resIdWith Int?
+ */
+inline fun <reified T : ViewGroup.LayoutParams> View.setViewSize(
+    @DimenRes resIdWith: Int? = null,
+    @DimenRes resIdHeight: Int? = null
+) {
+    this.updateLayoutParams<T> {
+        resIdHeight?.let {
+            height = resources.getDimension(resIdHeight).toInt()
+        }
+        resIdWith?.let {
+            width = resources.getDimension(resIdWith).toInt()
+        }
+    }
+}
+
+/**
+ * View 开始晃动动画
+ */
+fun View?.startShake() {
+    this ?: return
+    val animDuration = 100
+    val rotateArray = floatArrayOf(1.5f, -1.5f, 1.8f, -1.8f, 2.0f, -2.0f)
+    val rotate = rotateArray[Random().nextInt(rotateArray.size)]
+
+    val rotate1 = RotateAnimation(rotate, -rotate, this.width / 2F, this.height / 2F)
+    val rotate2 = RotateAnimation(-rotate, rotate, this.width / 2F, this.height / 2F)
+    rotate1.duration = animDuration.toLong()
+    rotate2.duration = animDuration.toLong()
+
+    // 设置旋转动画的监听
+    rotate1.setAnimationListener(object : Animation.AnimationListener {
+        override fun onAnimationEnd(animation: Animation) {
+            rotate1.reset() // 重置动画
+            startAnimation(rotate2) // 第一个动画结束开始第二个旋转动画
+        }
+
+        override fun onAnimationRepeat(animation: Animation) {}
+        override fun onAnimationStart(animation: Animation) {}
+    })
+    rotate2.setAnimationListener(object : Animation.AnimationListener {
+        override fun onAnimationEnd(animation: Animation) {
+            rotate2.reset()
+            startAnimation(rotate1) // 第二个动画结束开始第一个旋转动画
+        }
+
+        override fun onAnimationRepeat(animation: Animation) {}
+        override fun onAnimationStart(animation: Animation) {}
+    })
+    startAnimation(rotate1)
+}
+
+/**
+ * View 停止晃动动画
+ */
+fun View?.stopShake() {
+    this ?: return
+    clearAnimation()
+}
+
+fun View.onThrottledClick(
+    throttleDelay: Long = 500L,
+    onClick: (View) -> Unit
+) {
+    setOnClickListener {
+        onClick(this)
+        isClickable = false
+        postDelayed({ isClickable = true }, throttleDelay)
+    }
 }

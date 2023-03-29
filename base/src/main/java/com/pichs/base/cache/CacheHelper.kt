@@ -1,9 +1,5 @@
 package com.pichs.base.cache
 
-import android.app.Application
-import com.tencent.mmkv.MMKV
-import java.io.File
-
 /**
  * MMKV 封装
  */

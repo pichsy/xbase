@@ -40,7 +40,15 @@ abstract class BindingFragment<ViewBinder : ViewBinding> : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        onCreate()
         afterOnCreateView(view)
+    }
+
+    /**
+     * 在 beforeOnCreateView 之后调用 ，afterOnCreateView 之前调用
+     * 用于用户自己Base初始化
+     */
+    open fun onCreate() {
     }
 
     abstract fun beforeOnCreateView(savedInstanceState: Bundle?)

@@ -23,7 +23,15 @@ abstract class BindingActivity<ViewBinder : ViewBinding> : AppCompatActivity(), 
         beforeOnCreate(savedInstanceState)
         binding = ViewBindingUtil.inflateWithGeneric(this, LayoutInflater.from(this))
         setContentView(binding.root)
+        onCreate()
         afterOnCreate()
+    }
+
+    /**
+     * 在 setContentView 之后调用 ，afterOnCreate 之前调用
+     * 用于用户自己Base初始化
+     */
+    open fun onCreate() {
     }
 
     abstract fun beforeOnCreate(savedInstanceState: Bundle?)
