@@ -1,4 +1,4 @@
-package com.pichs.app.base.utils
+package com.pichs.base.utils
 
 import android.app.Service
 import android.content.Context
