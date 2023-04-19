@@ -19,9 +19,11 @@
 
 ### gradle引入
 
-最新版本:  [![](https://jitpack.io/v/com.gitee.pichs/xbase.svg)](https://jitpack.io/#com.gitee.pichs/xbase)
-
-       implementation 'com.gitee.pichs:xbase:2.0.4'
+最新版本:[![](https://jitpack.io/v/com.gitee.pichs/xbase.svg)](https://jitpack.io/#com.gitee.pichs/xbase)
+      
+       
+        implementation 'com.gitee.pichs:xbase:2.0.4'
+       
 
 ## 升级日志
 
