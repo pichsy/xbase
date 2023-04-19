@@ -1,6 +1,6 @@
 package com.pichs.base.utils
 
-import com.google.gson.Gson
+import com.google.gson.GsonBuilder
 import com.google.gson.reflect.TypeToken
 import java.lang.reflect.Type
 
@@ -9,7 +9,8 @@ import java.lang.reflect.Type
  */
 object GsonUtils {
 
-    private val mGson = Gson()
+    // 支持注解过滤功能。
+    private val mGson = GsonBuilder().excludeFieldsWithoutExposeAnnotation().create()
 
     /**
      * 普通json, 传入不带泛型的 class 对象

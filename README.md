@@ -21,9 +21,11 @@
 
 最新版本:  [![](https://jitpack.io/v/com.gitee.pichs/xbase.svg)](https://jitpack.io/#com.gitee.pichs/xbase)
 
-       implementation 'com.gitee.pichs:xbase:2.0.3'
+       implementation 'com.gitee.pichs:xbase:2.0.4'
 
 ## 升级日志
+
+##### 2.0.4版本 GsonUtils 创建的Gson对象支持序列化时忽略@Expose注解的功能
 
 ##### 2.0.3版本 修复LazyFragment继承的方法的open属性
 
