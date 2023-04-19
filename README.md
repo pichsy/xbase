@@ -21,10 +21,11 @@
 
 最新版本:  [![](https://jitpack.io/v/com.gitee.pichs/xbase.svg)](https://jitpack.io/#com.gitee.pichs/xbase)
 
-       implementation 'com.gitee.pichs:xbase:2.0.2'
-
+       implementation 'com.gitee.pichs:xbase:2.0.3'
 
 ## 升级日志
+
+##### 2.0.3版本 修复LazyFragment继承的方法的open属性
 
 ##### 2.0.2版本 优化工具类，
 1. 新增 BindingActivity方法给自己的BaseActivity用的。

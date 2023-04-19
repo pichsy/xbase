@@ -123,11 +123,11 @@ abstract class LazyFragment : BaseLazyFragment() {
     private var isStart = false
     protected abstract fun onCreateViewLazy(savedInstanceState: Bundle?)
 
-    protected fun onFragmentStartLazy() {}
-    protected fun onFragmentStopLazy() {}
-    protected fun onResumeLazy() {}
-    protected fun onPauseLazy() {}
-    protected fun onDestroyViewLazy() {}
+    open fun onFragmentStartLazy() {}
+    open fun onFragmentStopLazy() {}
+    open fun onResumeLazy() {}
+    open fun onPauseLazy() {}
+    open fun onDestroyViewLazy() {}
 
     override fun setContentView(layoutResID: Int) {
         if (isLazyLoad && getContentView() != null && getContentView()?.parent != null) {
