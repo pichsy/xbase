@@ -1,16 +1,25 @@
 package com.pichs.base.utils
 
+import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import com.google.gson.reflect.TypeToken
 import java.lang.reflect.Type
 
 /**
  * Gson工具类
+ *
+ *  请将所有属性都进行添加注解。否则你会后悔的。
+ *  支持忽略注解 Expose，所有未添加Expose注解的字段都不会被序列化和反序列化，
+    该对象只是个demo，请根据自己的需求进行修改修改。
+    public val gsonExcludeExpose by lazy(LazyThreadSafetyMode.SYNCHRONIZED) {
+        GsonBuilder().excludeFieldsWithoutExposeAnnotation().create()
+    }
  */
 object GsonUtils {
 
     // 支持注解过滤功能。
-    private val mGson = GsonBuilder().excludeFieldsWithoutExposeAnnotation().create()
+    private val mGson = Gson()
+
 
     /**
      * 普通json, 传入不带泛型的 class 对象

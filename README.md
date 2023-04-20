@@ -27,9 +27,9 @@
 
 ## 升级日志
 
-##### 2.0.4版本 GsonUtils 创建的Gson对象支持序列化时忽略@Expose注解的功能
+##### 2.0.4版本 优化TimerManager的功能。防止重复开启引起的崩溃。
 
-##### 2.0.3版本 修复LazyFragment继承的方法的open属性
+##### 2.0.3版本 修复LazyFragment继承的方法的open属性，GsonUtils 创建的Gson对象支持序列化时忽略@Expose注解的功能
 
 ##### 2.0.2版本 优化工具类，
 1. 新增 BindingActivity方法给自己的BaseActivity用的。

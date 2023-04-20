@@ -94,6 +94,8 @@ class TimerManager constructor(
     private fun startTimer(reset: Boolean) {
         if (reset) {
             resetTimer()
+        } else {
+            clearTaskOnly()
         }
         if (timerTask == null) {
             timerTask = object : TimerTask() {
@@ -164,6 +166,14 @@ class TimerManager constructor(
         isFinishing = false
         timesCount = 0
         mTotalTimes = if (times <= 0) 0 else times
+    }
+
+    private fun clearTaskOnly() {
+        timerTask?.cancel()
+        timer?.cancel()
+        timer = null
+        timerTask = null
+        isFinishing = false
     }
 
     private fun finishTimer() {
