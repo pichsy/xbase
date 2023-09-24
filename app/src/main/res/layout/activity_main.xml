@@ -1,89 +1,79 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:gravity="center"
-    android:orientation="vertical"
-    tools:context=".MainActivity">
+    android:layout_height="match_parent">
 
-    <com.pichs.common.widget.cardview.XCardButton
-        android:id="@+id/btn1"
-        android:layout_width="180dp"
-        android:layout_height="40dp"
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#72A3A1"
         android:gravity="center"
-        android:text="原样"
-        android:textColor="#fff"
-        android:textSize="20sp"
-        android:minHeight="10dp"
-        android:typeface="serif"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:xp_backgroundGradientEndColor="#f8e"
-        app:xp_backgroundGradientStartColor="#d94"
-        app:xp_isRadiusAdjustBounds="true" />
+        android:orientation="vertical"
+        tools:context=".MainActivity">
 
-    <com.pichs.common.widget.view.XButton
-        android:id="@+id/normalBtn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:background="#F49595"
-        android:minHeight="10dp"
-        android:padding="10dp"
-        android:text="普通粗细" />
+        <Button
+            android:id="@+id/btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="这是base"
+            android:textAllCaps="false" />
 
-    <com.pichs.common.widget.view.XButton
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:background="#F49595"
-        android:minHeight="10dp"
-        android:padding="10dp"
-        android:text="我是个混子，瑶瑶" />
+        <Button
+            android:id="@+id/btn1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="单个防重点击"
+            android:textAllCaps="false" />
 
-    <com.pichs.common.widget.view.XTextView
-        android:id="@+id/tv1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
-        android:background="#F7F7C2"
-        android:textColor="#d00"
-        android:text="大河之剑天上来，飞流直下三千尺"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btn1" />
+        <Button
+            android:id="@+id/btn4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="全局防重点击1"
+            android:textAllCaps="false" />
 
-    <com.pichs.common.widget.view.XTextView
-        android:id="@+id/tv2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
-        android:background="#AFEFE0"
-        android:text="十步杀一人，千里不留行"
-        android:textSize="20sp"
-        android:textStyle="bold|italic"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btn1" />
+        <Button
+            android:id="@+id/btn3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="全局防重点击2"
+            android:textAllCaps="false" />
 
-    <com.pichs.common.widget.view.XTextView
-        android:id="@+id/tv3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
-        android:background="#AFEFE0"
-        android:text="忽略全局字体变化"
-        android:textSize="20sp"
-        app:xp_ignoreGlobalTypeface="true"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btn1" />
+        <Button
+            android:id="@+id/btn2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="多次点击"
+            android:textAllCaps="false" />
 
-</LinearLayout>
+        <Button
+            android:id="@+id/btn_combo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="连击事件"
+            android:textAllCaps="false" />
+
+        <com.pichs.common.widget.cardview.XCardImageView
+            android:id="@+id/iv_img"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:src="#fff"
+            app:xp_radius="50dp" />
+
+        <ImageView
+            android:id="@+id/iv_mmm"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:src="#f00" />
+
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/iv_circle"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:src="#ff0" />
+
+    </LinearLayout>
+</ScrollView>
