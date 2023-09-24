@@ -59,6 +59,6 @@ dependencies {
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.1"
     implementation 'com.github.bumptech.glide:okhttp3-integration:4.9.0'
     implementation project(':base')
-//    implementation 'io.github.pichsy:xbase:3.0.0'
+//    implementation 'io.github.pichsy:xbase:3.1.0'
 
 }
