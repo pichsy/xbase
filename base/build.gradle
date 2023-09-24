@@ -23,24 +23,35 @@ android {
     }
 }
 dependencies {
+    // kotlin
+//    implementation 'androidx.core:core-ktx:1.8.0'
+//    implementation 'org.jetbrains.kotlin:kotlin-stdlib:1.8.0'
+
+    // 基础库
     implementation 'androidx.appcompat:appcompat:1.6.1'
     implementation 'com.google.android.material:material:1.9.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
     implementation 'androidx.annotation:annotation:1.6.0'
     implementation 'com.google.android.material:material:1.9.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
-    implementation 'com.gitee.pichs:xwidget:3.2.3'
-    implementation 'com.squareup.okio:okio:3.2.0'
-
-    // MMKV 代替SharedPreference, 强力推荐
-    implementation 'com.tencent:mmkv-static:1.2.12'
+    // 网络
+    implementation 'com.squareup.okhttp3:okhttp:4.11.0'
+    implementation 'com.squareup.retrofit2:retrofit:2.9.0'
+    implementation 'com.squareup.okhttp3:logging-interceptor:4.9.3'
+    implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
     implementation 'com.google.code.gson:gson:2.10.1'
+    implementation 'com.squareup.okio:okio:3.2.0'
+    // glide
     implementation 'com.github.bumptech.glide:glide:4.15.1'
-
+    implementation 'com.github.bumptech.glide:okhttp3-integration:4.9.0'
     // 协程
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.1'
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.1"
-    implementation 'com.github.bumptech.glide:okhttp3-integration:4.9.0'
+
+    // MMKV 代替SharedPreference, 强力推荐
+    implementation 'com.tencent:mmkv-static:1.2.12'
+//    implementation 'com.gitee.pichs:xwidget:3.2.3'
+
 }
 
 
@@ -50,7 +61,7 @@ task javadoc(type: Javadoc) {
     source = android.sourceSets.main.java.srcDirs
     classpath += project.files(android.getBootClasspath().join(File.pathSeparator))
     options.links("http://docs.oracle.com/javase/7/docs/api/");
-    options.linksOffline "http://d.android.com/reference","${android.sdkDirectory}/docs/reference"
+    options.linksOffline "http://d.android.com/reference", "${android.sdkDirectory}/docs/reference"
     exclude '**/BuildConfig.java'
     exclude '**/R.java'
     failOnError = false

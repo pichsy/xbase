@@ -8,6 +8,9 @@ import com.tencent.mmkv.MMKV
 import org.jetbrains.annotations.NotNull
 import java.io.File
 
+/**
+ * 基础mmkv封装，其他封装，请继承此类。
+ */
 abstract class BaseMMKVHelper constructor(val mmapID: String?) {
 
     private var kv: MMKV? = null

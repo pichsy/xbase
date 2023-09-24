@@ -10,8 +10,8 @@ import java.lang.Exception
 object MetaUtils {
     fun getMetaDataString(context: Context, metaDataName: String, defaultValue: String? = null): String? {
         return try {
-            val appInfo = context.packageManager.getApplicationInfo(
-                context.packageName, PackageManager.GET_META_DATA
+            val appInfo = context.applicationContext.packageManager.getApplicationInfo(
+                context.applicationContext.packageName, PackageManager.GET_META_DATA
             )
             appInfo.metaData.getString(metaDataName, defaultValue) ?: defaultValue
         } catch (e: PackageManager.NameNotFoundException) {
@@ -22,8 +22,8 @@ object MetaUtils {
 
     fun getMetaDataInt(context: Context, metaDataName: String, defaultValue: Int = 0): Int {
         return try {
-            val appInfo = context.packageManager.getApplicationInfo(
-                context.packageName, PackageManager.GET_META_DATA
+            val appInfo = context.applicationContext.packageManager.getApplicationInfo(
+                context.applicationContext.packageName, PackageManager.GET_META_DATA
             )
             val value = appInfo.metaData.getInt(metaDataName, defaultValue)
             value ?: defaultValue
@@ -35,8 +35,8 @@ object MetaUtils {
 
     fun getMetaDataBoolean(context: Context, metaDataName: String, defaultValue: Boolean = false): Boolean {
         return try {
-            val appInfo = context.packageManager.getApplicationInfo(
-                context.packageName, PackageManager.GET_META_DATA
+            val appInfo = context.applicationContext.packageManager.getApplicationInfo(
+                context.applicationContext.packageName, PackageManager.GET_META_DATA
             )
             appInfo.metaData.getBoolean(metaDataName, defaultValue)
         } catch (e: PackageManager.NameNotFoundException) {
@@ -47,7 +47,7 @@ object MetaUtils {
 
     fun getMetaDataFloat(context: Context, metaDataName: String, defaultValue: Float = 0.0f): Float {
         return try {
-            getMetaData(context, metaDataName, defaultValue) ?: defaultValue
+            getMetaData(context.applicationContext, metaDataName, defaultValue) ?: defaultValue
         } catch (e: Exception) {
             defaultValue
         }
@@ -55,7 +55,7 @@ object MetaUtils {
 
     fun <T> getMetaData(context: Context, metaDataName: String?, defaultValue: T? = null): T? {
         return try {
-            getMetaData(context, metaDataName, defaultValue)
+            getMetaData(context.applicationContext, metaDataName, defaultValue)
         } catch (e: Exception) {
             defaultValue
         }

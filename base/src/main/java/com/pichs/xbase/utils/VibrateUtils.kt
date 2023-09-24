@@ -15,12 +15,12 @@ object VibrateUtils {
     private var vibrator: Vibrator? = null
 
     @RequiresPermission("android.permission.VIBRATE")
-    fun vibrate(context: Context, milliseconds: Long) {
-        if (!hasVibrator(context)) return
+    fun vibrate(milliseconds: Long) {
+        if (!hasVibrator()) return
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.O) {
-            getVibrator(context)?.vibrate(milliseconds)
+            getVibrator()?.vibrate(milliseconds)
         } else {
-            getVibrator(context)?.vibrate(
+            getVibrator()?.vibrate(
                 VibrationEffect.createOneShot(
                     milliseconds,
                     VibrationEffect.DEFAULT_AMPLITUDE
@@ -30,12 +30,12 @@ object VibrateUtils {
     }
 
     @RequiresPermission("android.permission.VIBRATE")
-    fun vibrateWave(context: Context, timings: LongArray?, repeat: Int) {
-        if (!hasVibrator(context)) return
+    fun vibrateWave(timings: LongArray?, repeat: Int) {
+        if (!hasVibrator()) return
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.O) {
-            getVibrator(context)?.vibrate(timings, repeat)
+            getVibrator()?.vibrate(timings, repeat)
         } else {
-            getVibrator(context)?.vibrate(
+            getVibrator()?.vibrate(
                 VibrationEffect.createWaveform(
                     timings,
                     repeat
@@ -44,18 +44,18 @@ object VibrateUtils {
         }
     }
 
-    fun hasVibrator(context: Context): Boolean {
-        return getVibrator(context)?.hasVibrator() ?: false
+    fun hasVibrator(): Boolean {
+        return getVibrator()?.hasVibrator() ?: false
     }
 
     @RequiresPermission("android.permission.VIBRATE")
-    fun cancel(context: Context) {
-        getVibrator(context)?.cancel()
+    fun cancel() {
+        getVibrator()?.cancel()
     }
 
-    private fun getVibrator(context: Context): Vibrator? {
+    private fun getVibrator(): Vibrator? {
         if (vibrator == null) {
-            vibrator = context.getSystemService(Service.VIBRATOR_SERVICE) as Vibrator
+            vibrator = UiKit.getApplication().getSystemService(Service.VIBRATOR_SERVICE) as Vibrator
         }
         return vibrator
     }

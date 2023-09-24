@@ -3,11 +3,7 @@ import android.content.Context
 import android.media.MediaPlayer
 
 /**
- * @ClassName AudioUtils
- * @Description TODO
- * @Author jinlin
- * @Date 2021/9/4 10:19
- * @Version 1.0
+ * 原生音频播放
  */
 object AudioUtils {
 

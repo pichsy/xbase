@@ -5,9 +5,13 @@ import android.media.AudioAttributes
 import android.media.AudioManager
 import android.media.SoundPool
 import android.os.Build
+import com.pichs.xbase.audio.SoundPoolPlayer.openAssetsMusic
 import com.pichs.xbase.cache.BaseMMKVHelper
 import com.pichs.xbase.utils.ThreadUtils
 
+/**
+ * 声音播放器
+ */
 object SoundPoolPlayer {
 
     private var soundPool: SoundPool? = null
@@ -65,7 +69,7 @@ object SoundPoolPlayer {
     }
 
 
-    fun openAssetsMusic(path: String) {
+    fun openAssetsMusic(path: String, isLoop: Boolean = false) {
         ThreadUtils.runOnIOThread {
             init()
             soundPool?.apply {
@@ -74,23 +78,65 @@ object SoundPoolPlayer {
                     load(fd, 1)
                     setOnLoadCompleteListener { sp, soundId, _ ->
                         soundIDMap[path] = soundId
-                        sp.play(soundId, 1f, 1f, 1, 0, 1f)
+                        sp.play(soundId, 1f, 1f, 1, if (isLoop) 1 else 0, 1f)
                     }
                 } else {
                     soundIDMap[path]?.let { id ->
-                        play(id, 1f, 1f, 1, 0, 1f)
+                        if (isLoop) {
+                            stop(id)
+                        }
+                        play(id, 1f, 1f, 1, if (isLoop) 1 else 0, 1f)
                     }
                 }
             }
         }
     }
 
+    fun setVolume(path: String, leftVolume: Float, rightVolume: Float) {
+        soundPool?.apply {
+            soundIDMap[path]?.let { id ->
+                setVolume(id, leftVolume, rightVolume)
+            }
+        }
+    }
+
+    fun playOnce(path: String) {
+        openAssetsMusic(path, false)
+    }
+
+    fun playLoop(path: String) {
+        openAssetsMusic(path, true)
+    }
+
+    fun stop(path: String) {
+        soundPool?.apply {
+            soundIDMap[path]?.let { id ->
+                stop(id)
+            }
+        }
+    }
+
+    fun unload(path: String) {
+        soundPool?.apply {
+            soundIDMap[path]?.let { id ->
+                unload(id)
+            }
+        }
+    }
+
+
+    fun stopAll() {
+        release()
+    }
 
     /**
      * 不要轻易使用，调用后，再点击就没有音效了
      */
     fun release() {
         isInit = false
+        soundIDMap.forEach {
+            soundPool?.stop(it.value)
+        }
         soundIDMap.clear()
         soundPool?.release()
     }

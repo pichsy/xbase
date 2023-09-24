@@ -1,5 +1,8 @@
 package com.pichs.xbase.kotlinext
 
+import android.animation.Animator
+import android.animation.AnimatorListenerAdapter
+import android.view.ViewPropertyAnimator
 import android.view.animation.Animation
 
 /**
@@ -21,6 +24,9 @@ public inline fun Animation.doOnRepeat(crossinline run: (animation: Animation?) 
     setListener(onRepeat = run)
 }
 
+/**
+ * 开启动画监听
+ */
 public inline fun Animation.setListener(
     crossinline onStart: (animation: Animation?) -> Unit = {},
     crossinline onRepeat: (animation: Animation?) -> Unit = {},
@@ -42,3 +48,29 @@ public inline fun Animation.setListener(
     setAnimationListener(listener)
     return listener
 }
+
+
+/**
+ * 和doOnStart只能用一个
+ */
+public inline fun ViewPropertyAnimator.doOnEnd(
+    crossinline onEnd: (animator: Animator) -> Unit
+): ViewPropertyAnimator {
+    setListener(object : AnimatorListenerAdapter() {
+        override fun onAnimationEnd(animator: Animator) = onEnd(animator)
+    })
+    return this
+}
+
+/**
+ * 和doOnEnd只能用一个
+ */
+public inline fun ViewPropertyAnimator.doOnStart(
+    crossinline onEnd: (animator: Animator) -> Unit
+): ViewPropertyAnimator {
+    setListener(object : AnimatorListenerAdapter() {
+        override fun onAnimationStart(animator: Animator) = onEnd(animator)
+    })
+    return this
+}
+

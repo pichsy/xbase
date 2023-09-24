@@ -37,7 +37,7 @@ android {
 }
 
 dependencies {
-    implementation fileTree(dir: 'libs', includes: ['*.jar', '*.aar'])
+
     implementation 'androidx.appcompat:appcompat:1.6.1'
     implementation 'com.google.android.material:material:1.9.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
@@ -46,15 +46,19 @@ dependencies {
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
     implementation 'com.gitee.pichs:xwidget:3.2.3'
     implementation 'com.squareup.okio:okio:3.2.0'
+
     // MMKV 代替SharedPreference, 强力推荐
     implementation 'com.tencent:mmkv-static:1.2.12'
     implementation 'com.google.code.gson:gson:2.10.1'
     implementation 'com.github.bumptech.glide:glide:4.15.1'
+
+    implementation 'com.github.getActivity:EasyWindow:10.3'
 
     // 协程
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.1'
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.1"
     implementation 'com.github.bumptech.glide:okhttp3-integration:4.9.0'
     implementation project(':base')
+//    implementation 'io.github.pichsy:xbase:3.0.0'
 
 }

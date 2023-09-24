@@ -16,7 +16,7 @@ import androidx.viewbinding.ViewBinding
  */
 abstract class BindingFragment<ViewBinder : ViewBinding> : Fragment() {
 
-    lateinit var binding: ViewBinder
+    protected lateinit var binding: ViewBinder
     protected lateinit var mActivity: Activity
     protected lateinit var mAppCompatActivity: AppCompatActivity
 
@@ -40,18 +40,12 @@ abstract class BindingFragment<ViewBinder : ViewBinding> : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        onCreate()
         afterOnCreateView(view)
     }
 
-    /**
-     * 在 beforeOnCreateView 之后调用 ，afterOnCreateView 之前调用
-     * 用于用户自己Base初始化
-     */
-    open fun onCreate() {
-    }
+     open fun beforeOnCreateView(savedInstanceState: Bundle?){
 
-    abstract fun beforeOnCreateView(savedInstanceState: Bundle?)
+     }
     abstract fun afterOnCreateView(rootView: View?)
 
     fun <T : View> findViewById(@IdRes id: Int): T {

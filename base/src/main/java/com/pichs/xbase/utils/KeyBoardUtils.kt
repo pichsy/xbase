@@ -1,6 +1,5 @@
 package com.pichs.xbase.utils
 
-import android.R
 import android.app.Activity
 import android.content.Context
 import android.graphics.Rect
@@ -13,7 +12,6 @@ import android.view.View
 import android.view.Window
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
-import com.pichs.common.widget.utils.XStatusBarHelper
 
 object KeyBoardUtils {
     private const val TAG_ON_GLOBAL_LAYOUT_LISTENER = -8
@@ -117,7 +115,7 @@ object KeyBoardUtils {
                     + (decorView.bottom - outRect.bottom)
         )
         val delta = Math.abs(decorView.bottom - outRect.bottom)
-        if (delta <= XStatusBarHelper.getStatusBarHeight(window.context) + getNavigationBarHeight(window.context)) {
+        if (delta <= StatusBarUtils.getStatusBarHeight() + getNavigationBarHeight(window.context)) {
             sDecorViewDelta = delta
             return 0
         }
@@ -151,7 +149,7 @@ object KeyBoardUtils {
         if (flags and WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS != 0) {
             window.clearFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS)
         }
-        val contentView = window.findViewById<FrameLayout>(R.id.content)
+        val contentView = window.findViewById<FrameLayout>(android.R.id.content)
         val decorViewInvisibleHeightPre = intArrayOf(getDecorViewInvisibleHeight(window))
         val onGlobalLayoutListener = OnGlobalLayoutListener {
             val height = getDecorViewInvisibleHeight(window)
@@ -170,7 +168,7 @@ object KeyBoardUtils {
      * @param window The window.
      */
     fun unregisterSoftInputChangedListener(window: Window) {
-        val contentView = window.findViewById<FrameLayout>(R.id.content)
+        val contentView = window.findViewById<FrameLayout>(android.R.id.content)
         val tag = contentView.getTag(TAG_ON_GLOBAL_LAYOUT_LISTENER)
         if (tag is OnGlobalLayoutListener) {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
@@ -200,7 +198,7 @@ object KeyBoardUtils {
     fun fixAndroidBug5497(window: Window) {
 //        int softInputMode = window.getAttributes().softInputMode;
 //        window.setSoftInputMode(softInputMode & ~WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
-        val contentView = window.findViewById<FrameLayout>(R.id.content)
+        val contentView = window.findViewById<FrameLayout>(android.R.id.content)
         val contentViewChild = contentView.getChildAt(0)
         val paddingBottom = contentViewChild.paddingBottom
         val contentViewInvisibleHeightPre5497 = intArrayOf(getContentViewInvisibleHeight(window))
@@ -220,7 +218,7 @@ object KeyBoardUtils {
     }
 
     private fun getContentViewInvisibleHeight(window: Window): Int {
-        val contentView = window.findViewById<View>(R.id.content) ?: return 0
+        val contentView = window.findViewById<View>(android.R.id.content) ?: return 0
         val outRect = Rect()
         contentView.getWindowVisibleDisplayFrame(outRect)
         Log.d(
@@ -228,7 +226,7 @@ object KeyBoardUtils {
                     + (contentView.bottom - outRect.bottom)
         )
         val delta = Math.abs(contentView.bottom - outRect.bottom)
-        return if (delta <= XStatusBarHelper.getStatusBarHeight(window.context) + getNavigationBarHeight(window.context)) {
+        return if (delta <= StatusBarUtils.getStatusBarHeight() + getNavigationBarHeight(window.context)) {
             0
         } else delta
     }

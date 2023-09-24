@@ -72,25 +72,6 @@ object AssetsUtils {
         return image
     }
 
-    fun playMusicFromAssets(context: Context, fileName: String) {
-        try {
-            val openFd = context.assets.openFd(fileName)
-            val mediaPlayer = MediaPlayer()
-            if (mediaPlayer.isPlaying) {
-                mediaPlayer.reset() //如果正在播放，则重置为初始状态
-            }
-            mediaPlayer.setDataSource(
-                openFd.fileDescriptor,
-                openFd.startOffset,
-                openFd.length
-            ) //设置资源目录
-            mediaPlayer.prepare() //缓冲
-            mediaPlayer.start() //开始或恢复播放
-        } catch (e: IOException) {
-            e.printStackTrace()
-        }
-    }
-
     /**
      * 可以获取drawable资源的uri
      *

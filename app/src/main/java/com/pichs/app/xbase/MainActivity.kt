@@ -1,6 +1,5 @@
 package com.pichs.app.xbase
 
-import android.os.Bundle
 import android.widget.Toast
 import com.pichs.app.xbase.databinding.ActivityMainBinding
 import com.pichs.xbase.binding.BindingActivity
@@ -11,7 +10,7 @@ import com.pichs.xbase.clickhelper.MultiClickHelper
 import com.pichs.xbase.imageloader.ImageLoader
 
 class MainActivity : BindingActivity<ActivityMainBinding>() {
-    override fun beforeOnCreate(savedInstanceState: Bundle?) {}
+
     override fun afterOnCreate() {
         binding.btn.setOnClickListener {
             Toast.makeText(applicationContext, "普通点击0", Toast.LENGTH_SHORT).show()

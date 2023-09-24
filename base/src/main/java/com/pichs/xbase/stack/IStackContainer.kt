@@ -1,4 +1,5 @@
 package com.pichs.xbase.stack
+
 /**
  * 栈的管理者接口
  */
@@ -9,12 +10,12 @@ interface IStackContainer {
      *
      * @param activity IStackChild
      */
-    fun addActivity(activity: com.pichs.xbase.stack.IStackChild)
+    fun addActivity(activity: IStackChild)
 
     /**
      * 删除Activity
      *
      * @param activity IStackChild
      */
-    fun removeActivity(activity: com.pichs.xbase.stack.IStackChild)
+    fun removeActivity(activity: IStackChild)
 }

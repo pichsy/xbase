@@ -2,6 +2,8 @@ package com.pichs.xbase.cache
 
 /**
  * MMKV 封装
+ * 继承了 BaseMMKVHelper
+ * 使用默认的 mmkv 对象
  */
 class CacheHelper private constructor() : BaseMMKVHelper(null) {
 

@@ -1,4 +1,4 @@
-package com.gankao.dpc.base.kotlinext
+package com.pichs.xbase.kotlinext
 
 
 /**

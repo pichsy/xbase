@@ -10,7 +10,11 @@
 6. 栈的管理 StackManager， 继承BindingActivity即可
 7. 栈的管理 也可以参考 BindingActivity, 让自己的基类（eg:xxxBaseActivity）继承IStackChild 实现方法即可，灵活
 
+
+
 ## 使用
+- 建议将源码下载下载放到自己工程里，方便自己修改，因为可能会随时变化，更方便自己维护。
+- 此基础库，只是提供一些基础的功能，方便自己快速开发，可以直接引用，也可以下载后修改。
 
 1. 继承BindingActivity实现自己的BaseActivity
 2. 继承BindingFragment实现自己的BaseFragment
@@ -19,13 +23,47 @@
 
 ### gradle引入
 
-最新版本:[![](https://jitpack.io/v/com.gitee.pichs/xbase.svg)](https://jitpack.io/#com.gitee.pichs/xbase)
+最新版本:[![](https://img.shields.io/maven-central/v/io.github.pichsy/xbase)](https://img.shields.io/maven-central/v/io.github.pichsy/xbase)
       
        
-        implementation 'com.gitee.pichs:xbase:2.0.4'
+            implementation 'io.github.pichsy:xbase:3.0.0'
+
+### 第三方库的引入（必须）
+- 下方的库需要自己引入
+- 自己可根据最新版本进行 升级下方的库
+
+```groovy
+
+    implementation 'androidx.appcompat:appcompat:1.6.1'
+    implementation 'com.google.android.material:material:1.9.0'
+    implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
+    implementation 'androidx.annotation:annotation:1.6.0'
+    implementation 'com.google.android.material:material:1.9.0'
+    implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
+    implementation 'com.squareup.okio:okio:3.2.0'
+    
+    // MMKV 代替SharedPreference, 强力推荐
+    implementation 'com.tencent:mmkv-static:1.2.12'
+    implementation 'com.google.code.gson:gson:2.10.1'
+    implementation 'com.github.bumptech.glide:glide:4.15.1'
+    
+    // 协程
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.1'
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.1"
+    implementation 'com.github.bumptech.glide:okhttp3-integration:4.9.0'
+
+
+    implementation 'com.github.getActivity:EasyWindow:10.3'
+    implementation 'com.gitee.pichs:xwidget:3.2.3'
+
+
+```
        
 
 ## 升级日志
+
+##### 3.0.0版本 由于jitpack仓库对gradle高版本不友好，所有改为用 maven中央仓库
+-  优化代码，增加扩展方法，更实用，功能更全，也更简单。
 
 ##### 2.0.4版本 优化TimerManager的功能。防止重复开启引起的崩溃。
 

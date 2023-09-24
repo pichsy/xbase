@@ -12,9 +12,11 @@ import com.pichs.xbase.lazy.LazyFragment
  */
 abstract class BindingLazyFragment<ViewBinder : ViewBinding> : LazyFragment() {
 
-    lateinit var binding: ViewBinder
+    protected lateinit var binding: ViewBinder
 
-    abstract fun beforeOnCreateView(savedInstanceState: Bundle?)
+    open fun beforeOnCreateView(savedInstanceState: Bundle?) {
+
+    }
 
     abstract fun afterOnCreateView(rootView: View)
 
@@ -22,18 +24,8 @@ abstract class BindingLazyFragment<ViewBinder : ViewBinding> : LazyFragment() {
         beforeOnCreateView(savedInstanceState)
         binding = ViewBindingUtil.inflateWithGeneric(this, inflater, container, false)
         setContentView(binding.root)
-        onCreate()
         afterOnCreateView(binding.root)
     }
-
-
-    /**
-     * 在 beforeOnCreateView 之后调用 ，afterOnCreateView 之前调用
-     * 给自己的base封装用。
-     */
-    open fun onCreate() {
-    }
-
 
     fun <T : View> findViewById(@IdRes id: Int): T {
         return binding.root.findViewById(id)

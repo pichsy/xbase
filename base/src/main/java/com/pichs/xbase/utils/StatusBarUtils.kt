@@ -1,5 +1,8 @@
 package com.pichs.xbase.utils
 
+import android.annotation.SuppressLint
+import android.content.Context
+import android.content.res.Resources
 import android.graphics.Color
 import android.os.Build
 import android.view.View
@@ -7,6 +10,7 @@ import android.view.Window
 import android.view.WindowManager
 import androidx.activity.ComponentActivity
 import androidx.annotation.RequiresApi
+import java.lang.reflect.Field
 
 object StatusBarUtils {
 
@@ -70,4 +74,40 @@ object StatusBarUtils {
                 decor.systemUiVisibility and View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR.inv()
         }
     }
+
+
+    fun getNavigationHeight(): Int {
+        return try {
+            val res = Resources.getSystem()
+
+            @SuppressLint("InternalInsetResource", "DiscouragedApi")
+            val resourceId = res.getIdentifier("navigation_bar_height", "dimen", "android")
+            var height = 0
+            if (resourceId != 0) {
+                height = res.getDimensionPixelSize(resourceId)
+            }
+            height
+        } catch (e: Exception) {
+            e.printStackTrace()
+            0
+        }
+    }
+
+
+    fun getStatusBarHeight(): Int {
+        return try {
+            val res = Resources.getSystem()
+
+            @SuppressLint("InternalInsetResource", "DiscouragedApi")
+            val resourceId = res.getIdentifier("status_bar_height", "dimen", "android")
+            var height = 0
+            if (resourceId != 0) {
+                height = res.getDimensionPixelSize(resourceId)
+            }
+            height
+        } catch (e: Exception) {
+            0
+        }
+    }
+
 }

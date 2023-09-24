@@ -1,11 +1,13 @@
 package com.pichs.xbase.kotlinext
 
+import android.view.View
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.ItemAnimator
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
+import androidx.viewpager2.widget.ViewPager2
 
 fun RecyclerView.itemAnimator(itemAnimator: ItemAnimator): RecyclerView {
     setItemAnimator(itemAnimator)
@@ -83,4 +85,14 @@ fun RecyclerView.staggered(
         this.reverseLayout = reverseLayout
     }
     return this
+}
+
+/**
+ * 设置[ViewPager2]中的[RecyclerView]的滚动气泡隐藏
+ */
+fun ViewPager2.neverOverScrollMode() {
+    val v = getChildAt(0)
+    if (v is RecyclerView) {
+        v.overScrollMode = View.OVER_SCROLL_NEVER
+    }
 }
