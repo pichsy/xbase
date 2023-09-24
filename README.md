@@ -24,7 +24,7 @@
 
 最新版本:[![](https://img.shields.io/maven-central/v/io.github.pichsy/xbase)](https://img.shields.io/maven-central/v/io.github.pichsy/xbase)
 
-            implementation 'io.github.pichsy:xbase:3.0.0'
+            implementation 'io.github.pichsy:xbase:3.1.0'
 
 ### 第三方库的引入（必须）
 
