@@ -31,15 +31,6 @@ android {
         }
     }
 
-    compileOptions {
-        sourceCompatibility rootProject.ext.targetCompatibility
-        targetCompatibility rootProject.ext.targetCompatibility
-    }
-
-    kotlinOptions {
-        jvmTarget = rootProject.ext.jvmTarget
-    }
-
     buildFeatures {
         viewBinding true
     }

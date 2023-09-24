@@ -4,13 +4,13 @@ project.apply plugin: 'kotlin-parcelize'
 //project.apply plugin: 'kotlin-kapt'
 
 project.android {
-    compileOptions {
-        sourceCompatibility rootProject.ext.targetCompatibility
-        targetCompatibility rootProject.ext.targetCompatibility
-    }
-    kotlinOptions {
-        jvmTarget = rootProject.ext.jvmTarget
-    }
+//    compileOptions {
+//        sourceCompatibility rootProject.ext.targetCompatibility
+//        targetCompatibility rootProject.ext.targetCompatibility
+//    }
+//    kotlinOptions {
+//        jvmTarget = rootProject.ext.jvmTarget
+//    }
     buildFeatures {
         viewBinding true
     }
