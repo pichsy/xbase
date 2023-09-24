@@ -50,7 +50,6 @@ dependencies {
 
     // MMKV 代替SharedPreference, 强力推荐
     implementation 'com.tencent:mmkv-static:1.2.12'
-//    implementation 'com.gitee.pichs:xwidget:3.2.3'
 
 }
 
