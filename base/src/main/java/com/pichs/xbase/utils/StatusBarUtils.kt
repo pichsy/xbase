@@ -1,36 +1,29 @@
 package com.pichs.xbase.utils
 
 import android.annotation.SuppressLint
-import android.content.Context
+import android.app.Activity
 import android.content.res.Resources
 import android.graphics.Color
 import android.os.Build
 import android.view.View
 import android.view.Window
 import android.view.WindowManager
-import androidx.activity.ComponentActivity
 import androidx.annotation.RequiresApi
-import java.lang.reflect.Field
 
 object StatusBarUtils {
 
     /**
      * 沉浸式状态栏
      */
-    @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
-    fun immersiveStatusBar(activity: ComponentActivity) {
+    fun immersiveStatusBar(activity: Activity) {
         transparentStatusBar(activity.window)
         transparentNavigationBar(activity.window)
     }
 
-    fun setFullScreen(activity: ComponentActivity) {
-
-    }
-
-
     /**
      * 透明状态栏
      */
+    @SuppressLint("ObsoleteSdkInt")
     @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
     fun transparentStatusBar(window: Window) {
         window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)
@@ -45,6 +38,7 @@ object StatusBarUtils {
     /**
      * 透明导航栏
      */
+    @SuppressLint("ObsoleteSdkInt")
     @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
     fun transparentNavigationBar(window: Window) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
@@ -64,6 +58,7 @@ object StatusBarUtils {
      *  @param isDark true 黑色 false 白色
      *
      */
+    @RequiresApi(Build.VERSION_CODES.M)
     fun setStatusBarFontDark(window: Window, isDark: Boolean) {
         val decor = window.decorView
         if (isDark) {

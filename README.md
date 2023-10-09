@@ -1,5 +1,8 @@
 # xbase
 
+### 项目地址：[https://github.com/pichsy/xbase](https://github.com/pichsy/xbase)
+
+### 项目介绍
 - 基于kotlin java混编
 
 1. BindingActivity
@@ -64,6 +67,8 @@ implementation 'com.tencent:mmkv-static:1.2.12'
 
 ## 升级日志
 
+
+##### 3.1.1版本：StatusBarUtils方法参数优化
 ##### 3.1.0版本 优化。新增和修改了基础类。增加了栈的管理
 - 新增 api
 - 修改AbstractBaseActivity为最基础的Activity，方便栈的管理
