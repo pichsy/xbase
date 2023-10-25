@@ -27,7 +27,7 @@
 
 最新版本:[![](https://img.shields.io/maven-central/v/io.github.pichsy/xbase)](https://img.shields.io/maven-central/v/io.github.pichsy/xbase)
 
-            implementation 'io.github.pichsy:xbase:3.1.1'
+            implementation 'io.github.pichsy:xbase:3.1.2'
 
 ### 第三方库的引入（必须）
 
@@ -67,7 +67,7 @@ implementation 'com.tencent:mmkv-static:1.2.12'
 
 ## 升级日志
 
-
+##### 3.1.2版本：混淆规则添加，你不再需要额外添加混淆规则了
 ##### 3.1.1版本：StatusBarUtils方法参数优化
 ##### 3.1.0版本 优化。新增和修改了基础类。增加了栈的管理
 - 新增 api
