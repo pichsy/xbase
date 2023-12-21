@@ -71,4 +71,4 @@ data class TripleValue<Value1, Value2, Value3>(
     }
 }
 
-fun <K, V1, V2, V3> tripleValueMapOf(): TripleValueMap<K, V1, V2, V3> = TripleValueMap()
+fun <K, V1, V2, V3> tripleValueMapOf() = TripleValueMap<K, V1, V2, V3>()

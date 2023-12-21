@@ -1,15 +1,15 @@
 package com.pichs.app.xbase
 
 import android.widget.Toast
+import com.pichs.app.xbase.baselibs.BaseActivity
 import com.pichs.app.xbase.databinding.ActivityMainBinding
-import com.pichs.xbase.binding.BindingActivity
 import com.pichs.xbase.cache.CacheHelper
 import com.pichs.xbase.clickhelper.ComboClickHelper
 import com.pichs.xbase.clickhelper.FastClickHelper
 import com.pichs.xbase.clickhelper.MultiClickHelper
 import com.pichs.xbase.imageloader.ImageLoader
 
-class MainActivity : BindingActivity<ActivityMainBinding>() {
+class MainActivity : BaseActivity<ActivityMainBinding>() {
 
     override fun afterOnCreate() {
         binding.btn.setOnClickListener {

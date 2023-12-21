@@ -191,19 +191,6 @@ object UriUtils {
                                 e.printStackTrace()
                             }
                         }
-                        if (TextUtils.isEmpty(realPath)) {
-                            // path could not be retrieved using ContentResolver, therefore copy file to accessible cache using streams
-                            val fileName = getFileName(context, uri, id)
-                            val cacheDir = File(context.cacheDir, "documents")
-                            if (!cacheDir.exists()) {
-                                cacheDir.mkdirs()
-                            }
-                            val file = generateFileName(fileName, cacheDir)
-                            if (file != null) {
-                                realPath = file.absolutePath
-                                saveFileFromUri(context, uri, realPath)
-                            }
-                        }
                     }
                 } else if ("com.android.providers.media.documents" == uri.authority) {
                     val docId = DocumentsContract.getDocumentId(uri)
@@ -257,6 +244,9 @@ object UriUtils {
         // 终极路径查询....
         if (TextUtils.isEmpty(realPath)) {
             realPath = queryRealPath(context, uri)
+        }
+        if (TextUtils.isEmpty(realPath)) {
+            saveFileFromUri(context, uri, realPath)
         }
         return realPath
     }
@@ -489,23 +479,14 @@ object UriUtils {
      */
     private fun saveFileFromUri(context: Context, uri: Uri, destinationPath: String?) {
         var `is`: InputStream? = null
-        var bos: BufferedOutputStream? = null
         try {
             `is` = context.contentResolver.openInputStream(uri)
-            bos = BufferedOutputStream(FileOutputStream(destinationPath, false))
-            val buf = ByteArray(1024)
-            if (`is` != null) {
-                `is`.read(buf)
-                do {
-                    bos.write(buf)
-                } while (`is`.read(buf) != -1)
-            }
+            FileIOUtils.writeFileFromInputStream(destinationPath, `is`)
         } catch (e: IOException) {
             e.printStackTrace()
         } finally {
             try {
                 `is`?.close()
-                bos?.close()
             } catch (e: IOException) {
                 e.printStackTrace()
             }

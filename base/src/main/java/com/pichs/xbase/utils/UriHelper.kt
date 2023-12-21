@@ -308,7 +308,7 @@ object UriHelper {
         return try {
             `is` = UiKit.getApplication().contentResolver.openInputStream(uri)
             val file = File(UiKit.getApplication().getCacheDir(), System.currentTimeMillis().toString())
-            FileUtils.writeFileFromIS(file, `is`, false)
+            FileIOUtils.writeFileFromInputStream(file, `is`, false)
             file
         } catch (e: FileNotFoundException) {
             e.printStackTrace()

@@ -23,7 +23,7 @@ object ClickPlayer {
      *       listener: View.OnClickListener?
      *      )]
      */
-    var IS_PLAY_SOUND_DEFAULT = true
+    var IS_PLAY_SOUND_DEFAULT = false
 
 
     fun initSound(musicAssetsName: String?, isPlaySoundDefault: Boolean = true) {
@@ -32,7 +32,7 @@ object ClickPlayer {
     }
 
     fun play() {
-        if (!musicPath.isNullOrEmpty()) {
+        if (musicPath.isNullOrEmpty().not()) {
             SoundPoolPlayer.openAssetsMusic(musicPath!!)
         }
     }

@@ -22,9 +22,13 @@ abstract class BaseMMKVHelper constructor(val mmapID: String?) {
          * 初始化MMKV，在Application的 onCreate 中初始化
          */
         @JvmStatic
-        fun init(app: Application) {
+        fun init(app: Application, path: String? = null) {
             application = app
-            MMKV.initialize(application, "${app.filesDir.absolutePath}${File.separator}mmkv")
+            if (path == null) {
+                MMKV.initialize(application, "${app.filesDir.absolutePath}${File.separator}mmkv")
+            } else {
+                MMKV.initialize(application, path)
+            }
         }
 
         /**

@@ -1,6 +1,7 @@
 package com.pichs.xbase.clickhelper
 
 import android.view.View
+import com.pichs.xbase.audio.SoundPoolPlayer
 import com.pichs.xbase.clickhelper.FastClickHelper.CLICK_INTERVAL_DEFAULT_VALUE
 
 /**
@@ -64,12 +65,12 @@ object GlobalFastClickHelper {
      * 多个View公用一个点击事件时
      */
     fun clicks(
-        vararg views: View?, audioPlay: Boolean, interval: Long = CLICK_INTERVAL_DEFAULT_VALUE, block: () -> Unit
+        vararg views: View?, playAudio: Boolean, interval: Long = CLICK_INTERVAL_DEFAULT_VALUE, block: () -> Unit
     ) {
         val clickListener = View.OnClickListener {
             if (isFastClick(interval)) return@OnClickListener
             block()
-            if (audioPlay) {
+            if (playAudio) {
                 ClickPlayer.play()
             }
         }
@@ -89,3 +90,31 @@ object GlobalFastClickHelper {
     }
 
 }
+
+// 扩展函数
+fun View.globalFastClick(isPlayAudio: Boolean = ClickPlayer.IS_PLAY_SOUND_DEFAULT, interval: Long = CLICK_INTERVAL_DEFAULT_VALUE, block: () -> Unit) {
+    GlobalFastClickHelper.clicks(this, playAudio = isPlayAudio, interval = interval, block = block)
+}
+
+fun View.globalFastClickWithAudio(audioAssetsPath: String? = null, block: () -> Unit) {
+    if (audioAssetsPath.isNullOrEmpty().not()) {
+        SoundPoolPlayer.playOnce(audioAssetsPath!!)
+        GlobalFastClickHelper.clicks(this, playAudio = false, block = block)
+    } else {
+        GlobalFastClickHelper.clicks(this, playAudio = true, block = block)
+    }
+}
+
+fun View.globalFastClickWithAudio(
+    isPlayAudio: Boolean = ClickPlayer.IS_PLAY_SOUND_DEFAULT, interval: Long = CLICK_INTERVAL_DEFAULT_VALUE, audioAssetsPath: String? = null, block: () -> Unit
+) {
+    if (audioAssetsPath.isNullOrEmpty().not()) {
+        if (isPlayAudio) {
+            SoundPoolPlayer.playOnce(audioAssetsPath!!)
+        }
+        GlobalFastClickHelper.clicks(this, playAudio = false, interval = interval, block = block)
+    } else {
+        GlobalFastClickHelper.clicks(this, playAudio = isPlayAudio, interval = interval, block = block)
+    }
+}
+

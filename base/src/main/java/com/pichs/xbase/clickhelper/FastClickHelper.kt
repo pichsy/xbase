@@ -1,7 +1,10 @@
 package com.pichs.xbase.clickhelper
 
 import android.view.View
+import android.view.View.OnClickListener
+import com.pichs.xbase.audio.SoundPoolPlayer
 import com.pichs.xbase.clickhelper.ClickPlayer.IS_PLAY_SOUND_DEFAULT
+import com.pichs.xbase.clickhelper.FastClickHelper.CLICK_INTERVAL_DEFAULT_VALUE
 
 /**
  * 点击事件处理工具，
@@ -21,20 +24,17 @@ object FastClickHelper {
      * 点击事件防重，单击，非全局
      */
     fun clicks(
-        vararg views: View,
-        playAudio: Boolean = IS_PLAY_SOUND_DEFAULT,
-        listener: View.OnClickListener?
+        vararg views: View, playAudio: Boolean = IS_PLAY_SOUND_DEFAULT, listener: View.OnClickListener?
     ) {
         if (views.isEmpty()) return
-        val lis: OnDebouncingClickListener =
-            object : OnDebouncingClickListener(CLICK_INTERVAL_DEFAULT_VALUE) {
-                override fun onViewClicked(v: View?) {
-                    listener?.onClick(v)
-                    if (playAudio) {
-                        ClickPlayer.play()
-                    }
+        val lis: OnDebouncingClickListener = object : OnDebouncingClickListener(CLICK_INTERVAL_DEFAULT_VALUE) {
+            override fun onViewClicked(v: View?) {
+                listener?.onClick(v)
+                if (playAudio) {
+                    ClickPlayer.play()
                 }
             }
+        }
         for (view in views) {
             if (listener == null) {
                 view.setOnClickListener(null)
@@ -49,21 +49,17 @@ object FastClickHelper {
      * 点击事件防重，单击，非全局
      */
     fun clicks(
-        vararg views: View,
-        playAudio: Boolean = IS_PLAY_SOUND_DEFAULT,
-        interval: Long = CLICK_INTERVAL_DEFAULT_VALUE,
-        listener: View.OnClickListener?
+        vararg views: View, playAudio: Boolean = IS_PLAY_SOUND_DEFAULT, interval: Long = CLICK_INTERVAL_DEFAULT_VALUE, listener: View.OnClickListener?
     ) {
         if (views.isEmpty()) return
-        val lis: OnDebouncingClickListener =
-            object : OnDebouncingClickListener(interval) {
-                override fun onViewClicked(v: View?) {
-                    listener?.onClick(v)
-                    if (playAudio) {
-                        ClickPlayer.play()
-                    }
+        val lis: OnDebouncingClickListener = object : OnDebouncingClickListener(interval) {
+            override fun onViewClicked(v: View?) {
+                listener?.onClick(v)
+                if (playAudio) {
+                    ClickPlayer.play()
                 }
             }
+        }
         for (view in views) {
             if (listener == null) {
                 view.setOnClickListener(null)
@@ -94,5 +90,45 @@ open abstract class OnDebouncingClickListener(private val mDuration: Long) : Vie
             return false
         }
         return true
+    }
+}
+
+// 扩展函数
+fun View.fastClick(isPlayAudio: Boolean = IS_PLAY_SOUND_DEFAULT, interval: Long = CLICK_INTERVAL_DEFAULT_VALUE, block: () -> Unit) {
+    FastClickHelper.clicks(this, playAudio = isPlayAudio, interval = interval) {
+        block.invoke()
+    }
+}
+
+fun View.fastClickWithAudio(audioAssetsPath: String? = null, block: () -> Unit) {
+    if (audioAssetsPath.isNullOrEmpty().not()) {
+        SoundPoolPlayer.playOnce(audioAssetsPath!!)
+        FastClickHelper.clicks(this, playAudio = false, listener = {
+            block.invoke()
+        })
+    } else {
+        FastClickHelper.clicks(this, playAudio = true, listener = {
+            block.invoke()
+        })
+    }
+}
+
+fun View.fastClickWithAudio(
+    isPlayAudio: Boolean = IS_PLAY_SOUND_DEFAULT,
+    interval: Long = CLICK_INTERVAL_DEFAULT_VALUE,
+    audioAssetsPath: String? = null,
+    block: () -> Unit
+) {
+    if (audioAssetsPath.isNullOrEmpty().not()) {
+        if (isPlayAudio) {
+            SoundPoolPlayer.playOnce(audioAssetsPath!!)
+        }
+        FastClickHelper.clicks(this, playAudio = false, interval = interval, listener = {
+            block.invoke()
+        })
+    } else {
+        FastClickHelper.clicks(this, playAudio = isPlayAudio, interval = interval, listener = {
+            block.invoke()
+        })
     }
 }

@@ -1,9 +1,13 @@
 package com.pichs.xbase.utils
 
-import android.util.Log
+import android.content.ContentResolver
+import android.net.Uri
+import android.os.Build
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
-import java.io.*
+import java.io.File
+import java.io.FileNotFoundException
+import java.io.IOException
 
 object FileUtils {
 
@@ -117,62 +121,16 @@ object FileUtils {
     }
 
 
-    fun isFileExists(file: File): Boolean {
-        return file.exists()
-    }
-
-
-    private const val sBufferSize = 524288
-
     /**
-     * Write file from input stream.
+     * Create a file if it doesn't exist, otherwise do nothing.
      *
-     * @param file     The file.
-     * @param is       The input stream.
-     * @param append   True to append, false otherwise.
-     * @param listener The progress update listener.
-     * @return `true`: success<br></br>`false`: fail
+     * @param file The file.
+     * @return `true`: exists or creates successfully<br></br>`false`: otherwise
      */
-    fun writeFileFromIS(
-        file: File,
-        `is`: InputStream?,
-        append: Boolean,
-    ): Boolean {
-        if (`is` == null || !createOrExistsFile(file)) {
-            Log.e("FileIOUtils", "create file <$file> failed.")
-            return false
-        }
-        var os: OutputStream? = null
-        return try {
-            os = BufferedOutputStream(FileOutputStream(file, append), sBufferSize)
-            val data = ByteArray(sBufferSize)
-            var len: Int
-            while (`is`.read(data).also { len = it } != -1) {
-                os.write(data, 0, len)
-            }
-            true
-        } catch (e: IOException) {
-            e.printStackTrace()
-            false
-        } finally {
-            try {
-                `is`.close()
-            } catch (e: IOException) {
-                e.printStackTrace()
-            }
-            try {
-                os?.close()
-            } catch (e: IOException) {
-                e.printStackTrace()
-            }
-        }
-    }
-
-    fun createOrExistsFile(file: File): Boolean {
+    fun createOrExistsFile(file: File?): Boolean {
         if (file == null) return false
         if (file.exists()) return file.isFile
-        if (!createOrExistsDir(file.parentFile)) return false
-        return try {
+        return if (!createOrExistsDir(file.parentFile)) false else try {
             file.createNewFile()
         } catch (e: IOException) {
             e.printStackTrace()
@@ -180,7 +138,82 @@ object FileUtils {
         }
     }
 
+    /**
+     * Create a directory if it doesn't exist, otherwise do nothing.
+     *
+     * @param file The file.
+     * @return `true`: exists or creates successfully<br></br>`false`: otherwise
+     */
     fun createOrExistsDir(file: File?): Boolean {
         return file != null && if (file.exists()) file.isDirectory else file.mkdirs()
     }
+
+
+    /**
+     * Return whether the file exists.
+     *
+     * @param file The file.
+     * @return `true`: yes<br></br>`false`: no
+     */
+    fun isFileExists(file: File?): Boolean {
+        if (file == null) return false
+        return if (file.exists()) {
+            true
+        } else isFileExists(file.absolutePath)
+    }
+
+    /**
+     * Return whether the file exists.
+     *
+     * @param filePath The path of file.
+     * @return `true`: yes<br></br>`false`: no
+     */
+    fun isFileExists(filePath: String): Boolean {
+        val file: File = getFileByPath(filePath) ?: return false
+        return if (file.exists()) {
+            true
+        } else isFileExistsApi29(filePath)
+    }
+
+    private fun isFileExistsApi29(filePath: String): Boolean {
+        if (Build.VERSION.SDK_INT >= 29) {
+            try {
+                val uri = Uri.parse(filePath)
+                val cr: ContentResolver = UiKit.getApplication().contentResolver
+                val afd = cr.openAssetFileDescriptor(uri, "r") ?: return false
+                try {
+                    afd.close()
+                } catch (ignore: IOException) {
+                }
+            } catch (e: FileNotFoundException) {
+                return false
+            }
+            return true
+        }
+        return false
+    }
+
+    fun isSpace(s: String?): Boolean {
+        if (s == null) return true
+        var i = 0
+        val len = s.length
+        while (i < len) {
+            if (!Character.isWhitespace(s[i])) {
+                return false
+            }
+            ++i
+        }
+        return true
+    }
+
+    /**
+     * Return the file by path.
+     *
+     * @param filePath The path of file.
+     * @return the file
+     */
+    fun getFileByPath(filePath: String?): File? {
+        return if (isSpace(filePath)) null else File(filePath)
+    }
+
 }

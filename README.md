@@ -49,19 +49,41 @@ implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
 // 网络
 implementation 'com.squareup.okhttp3:okhttp:4.11.0'
 implementation 'com.squareup.retrofit2:retrofit:2.9.0'
-implementation 'com.squareup.okhttp3:logging-interceptor:4.9.3'
+//implementation 'com.squareup.okhttp3:logging-interceptor:4.9.3'
 implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
 implementation 'com.google.code.gson:gson:2.10.1'
-implementation 'com.squareup.okio:okio:3.2.0'
+implementation 'com.squareup.okio:okio:3.4.0'
 // glide
-implementation 'com.github.bumptech.glide:glide:4.15.1'
+implementation 'com.github.bumptech.glide:glide:4.16.0'
 implementation 'com.github.bumptech.glide:okhttp3-integration:4.9.0'
 // 协程
 implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.1'
 implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.1"
 
 // MMKV 代替SharedPreference, 强力推荐
-implementation 'com.tencent:mmkv-static:1.2.12'
+implementation "com.tencent:mmkv:1.3.2"
+
+
+// 基础brv
+api "io.github.cymchad:BaseRecyclerViewAdapterHelper:4.0.1"
+// 弹窗库
+api 'io.github.razerdp:BasePopup:3.2.1'
+// 权限申请
+api 'com.github.getActivity:XXPermissions:18.3'
+// 吐司框架 已启用自改jar包方式，不要打开注释
+// api 'com.github.getActivity:Toaster:12.5'
+// 悬浮窗
+api 'com.github.getActivity:EasyWindow:10.3'
+// 消息总线通信
+api 'io.github.jeremyliao:live-event-bus-x:1.8.0'
+
+
+// 下拉上拉
+api 'io.github.scwang90:refresh-layout-kernel:2.0.5'      //核心必须依赖
+api 'io.github.scwang90:refresh-header-classics:2.0.5'    //经典刷新头
+api 'io.github.scwang90:refresh-footer-classics:2.0.5'    //经f典加载
+api 'io.github.scwang90:refresh-header-falsify:2.0.5'     //虚拟刷新头
+api 'io.github.scwang90:refresh-header-material:2.0.5'    //谷歌刷新头
 
 ```
 
@@ -101,9 +123,4 @@ implementation 'com.tencent:mmkv-static:1.2.12'
 - 剔除mvp模式
 - 增加utils，合并xutils工程到此项目中。废弃 xutils项目
 - 开发中发现很多东西都很累赘，并且很难用到，造成代码冗余，所以精简项目，只保留实用的代码。其他代码建议写到自己项目的base中去，因为可能会随时变化，更方便自己维护。
-
-##### 1.1版本 常规升级，老项目请最高引用到此版本
-
-- 停止维护
-
-
+##### 更老版本，清除记录

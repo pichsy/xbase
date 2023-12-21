@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="#72A3A1">
 
-    <com.pichs.common.widget.flowlayout.XFlowLayout
+    <com.pichs.xwidget.flowlayout.XFlowLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="center"
@@ -57,7 +57,7 @@
             android:text="连击事件"
             android:textAllCaps="false" />
 
-        <com.pichs.common.widget.cardview.XCardImageView
+        <com.pichs.xwidget.cardview.XCardImageView
             android:id="@+id/iv_img"
             android:layout_width="100dp"
             android:layout_height="100dp"
@@ -77,5 +77,5 @@
             android:layout_height="100dp"
             android:src="#ff0" />
 
-    </com.pichs.common.widget.flowlayout.XFlowLayout>
+    </com.pichs.xwidget.flowlayout.XFlowLayout>
 </ScrollView>

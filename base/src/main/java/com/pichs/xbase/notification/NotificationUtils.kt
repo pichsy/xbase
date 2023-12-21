@@ -4,6 +4,8 @@ import android.Manifest
 import android.annotation.SuppressLint
 import android.app.NotificationChannel
 import android.app.NotificationManager
+import android.app.PendingIntent
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
@@ -22,6 +24,7 @@ import com.pichs.xbase.utils.UiKit
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import okhttp3.internal.notify
 import java.util.concurrent.TimeUnit
 
 object NotificationUtils {
@@ -62,11 +65,11 @@ object NotificationUtils {
 
     private val notificationMap = mutableMapOf<String, ProgressNotification>()
 
-    fun showProgressNotification(pkg: String, title: String?, iconUrl: String?, progress: Int) {
+    fun showProgressNotification(pkg: String, title: String?, iconUrl: String?, progress: Int, intent: Intent? = null) {
         if (notificationMap[pkg] == null) {
             notificationMap[pkg] = ProgressNotification()
         }
-        notificationMap[pkg]?.show(pkg, title, iconUrl, progress)
+        notificationMap[pkg]?.show(pkg, title, iconUrl, progress, intent)
     }
 
     fun removeProgressNotification(pkg: String) {
@@ -81,8 +84,8 @@ object NotificationUtils {
     /**
      * 显示通知
      */
-    fun showNormalNotification(title: String?, content: String?) {
-        MessageNotification().show(title, content)
+    fun showNormalNotification(title: String?, content: String?, intent: Intent? = null) {
+        MessageNotification().show(title, content, intent)
     }
 
 }
@@ -92,7 +95,7 @@ class ProgressNotification {
     private var notificationBuilder: NotificationCompat.Builder? = null
     private var notificationChannel: NotificationChannel? = null
 
-    fun show(pkg: String, title: String?, iconUrl: String?, progress: Int) {
+    fun show(pkg: String, title: String?, iconUrl: String?, progress: Int, intent: Intent? = null) {
         // 通知栏，8.0以下不需要兼容
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             UiKit.launch(Dispatchers.Main) {
@@ -122,7 +125,18 @@ class ProgressNotification {
                                 setLargeIcon(largeIcon)
                             }
                         }.setPriority(NotificationCompat.PRIORITY_DEFAULT).setSubText("0%").setProgress(100, 0, false).setShowWhen(true).setSilent(true)
-                        .setNumber(100).setDefaults(NotificationCompat.FLAG_ONLY_ALERT_ONCE)
+                        .setNumber(100).setDefaults(NotificationCompat.FLAG_ONLY_ALERT_ONCE).apply {
+                            if (intent != null) {
+                                setContentIntent(
+                                    PendingIntent.getActivity(
+                                        UiKit.getApplication(),
+                                        0,
+                                        intent,
+                                        PendingIntent.FLAG_CANCEL_CURRENT or PendingIntent.FLAG_IMMUTABLE
+                                    )
+                                )
+                            }
+                        }
                     notify(notificationChannel?.name?.toString() ?: UiKit.getPackageName(), NotificationUtils.NOTIFICATION_ID, notificationBuilder)
                 } catch (e: Exception) {
                     e.printStackTrace()
@@ -206,7 +220,7 @@ class MessageNotification {
         var channelName = "xbase_channel_message_name"
     }
 
-    fun show(title: String?, content: String?) {
+    fun show(title: String?, content: String?, intent: Intent? = null) {
         // 通知栏，8.0以下不需要兼容
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             UiKit.launch(Dispatchers.Main) {
@@ -224,10 +238,27 @@ class MessageNotification {
                     val largeIcon = SysOsUtils.getAppIcon(UiKit.getApplication())!!.toBitmap(200, 200, null)
 
                     val notificationBuilder =
-                        NotificationCompat.Builder(UiKit.getApplication(), notificationChannel.id).setContentTitle(title ?: "").setContentText(content ?: "")
-                            .setSmallIcon(IconCompat.createWithBitmap(largeIcon)).setAutoCancel(true).setWhen(System.currentTimeMillis())
-                            .setLargeIcon(largeIcon).setPriority(NotificationCompat.PRIORITY_DEFAULT).setShowWhen(true).setSilent(false)
-                            .setDefaults(NotificationCompat.FLAG_ONLY_ALERT_ONCE)
+                        NotificationCompat.Builder(UiKit.getApplication(), notificationChannel.id)
+                            .setContentTitle(title ?: "")
+                            .setContentText(content ?: "")
+                            .setSmallIcon(IconCompat.createWithBitmap(largeIcon))
+                            .setAutoCancel(true).setWhen(System.currentTimeMillis())
+                            .setLargeIcon(largeIcon)
+                            .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+                            .setShowWhen(true)
+                            .setSilent(false)
+                            .setDefaults(NotificationCompat.FLAG_ONLY_ALERT_ONCE).apply {
+                                if (intent != null) {
+                                    setContentIntent(
+                                        PendingIntent.getActivity(
+                                            UiKit.getApplication(),
+                                            0,
+                                            intent,
+                                            PendingIntent.FLAG_CANCEL_CURRENT or PendingIntent.FLAG_IMMUTABLE
+                                        )
+                                    )
+                                }
+                            }
                     notify(notificationBuilder)
                 } catch (e: Exception) {
                     e.printStackTrace()

@@ -60,4 +60,4 @@ data class DoubleValue<Value1, Value2>(
     }
 }
 
-fun <K, V1, V2> twoValueMapOf(): DoubleValueMap<K, V1, V2> = DoubleValueMap()
+fun <K, V1, V2> doubleValueMapOf() = DoubleValueMap<K, V1, V2>()
