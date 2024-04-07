@@ -42,7 +42,7 @@ fun RecyclerView.removeItemDecoration(): RecyclerView {
  * @param reverseLayout 是否反转列表
  * @param scrollEnabled 是否允许滚动
  */
-fun RecyclerView.linear(
+fun RecyclerView.linearLayout(
     @RecyclerView.Orientation orientation: Int = RecyclerView.VERTICAL,
     reverseLayout: Boolean = false,
 ): RecyclerView {
@@ -59,7 +59,7 @@ fun RecyclerView.linear(
  * @param reverseLayout 是否反转
  * @param scrollEnabled 是否允许滚动
  */
-fun RecyclerView.grid(
+fun RecyclerView.gridLayout(
     spanCount: Int = 1,
     @RecyclerView.Orientation orientation: Int = RecyclerView.VERTICAL,
     reverseLayout: Boolean = false,
@@ -76,7 +76,7 @@ fun RecyclerView.grid(
  * @param reverseLayout 是否反转
  * @param scrollEnabled 是否允许滚动
  */
-fun RecyclerView.staggered(
+fun RecyclerView.staggeredLayout(
     spanCount: Int,
     @RecyclerView.Orientation orientation: Int = RecyclerView.VERTICAL,
     reverseLayout: Boolean = false,
