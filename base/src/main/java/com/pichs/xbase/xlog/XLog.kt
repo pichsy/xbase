@@ -7,8 +7,11 @@ import java.util.regex.Pattern
 
 object XLog {
 
+    var GLOBAL_TAG = "XLog"
+
     private const val isPrintLog = true
     private const val LOG_MAXLENGTH = 2000
+
     // 当前应用包名
     var packageName = ""
         private set
@@ -33,6 +36,7 @@ object XLog {
 
 
     var maxCacheLog = 1000
+
     /**
      * android 10 以上外部存储目录需要申请权限 [android.permission.MANAGE_EXTERNAL_STORAGE]
      *      val intent = Intent(Settings.ACTION_MANAGE_ALL_FILES_ACCESS_PERMISSION)
@@ -40,28 +44,34 @@ object XLog {
      * @param context Context
      * @param path String
      */
-    fun init(context: Context, path: String = "") {
+    fun init(context: Context, path: String = ""): XLog {
         packageName = context.applicationInfo.packageName
         rootLogPath = path
-        if (rootLogPath.isBlank()){
+        if (rootLogPath.isBlank()) {
             rootLogPath = context.filesDir.absolutePath
         }
-        if (!rootLogPath.endsWith("/")){
+        if (!rootLogPath.endsWith("/")) {
             rootLogPath += "/"
         }
         rootLogPath += DIR_LOG
         changeLogPath()
+        return this
     }
 
-    fun setUid(uid: String){
+    fun setGlobalTAG(tag: String): XLog {
+        GLOBAL_TAG = tag
+        return this
+    }
+
+    fun setUid(uid: String) {
         UID = uid
         changeLogPath()
     }
 
-    private fun changeLogPath(){
-        if (rootLogPath.contains(packageName)){
+    private fun changeLogPath() {
+        if (rootLogPath.contains(packageName)) {
             logPath = "$rootLogPath/$UID"
-        }else{
+        } else {
             logPath = "$rootLogPath/$packageName/$UID"
         }
     }
@@ -76,10 +86,8 @@ object XLog {
     }
 
 
-
-
     fun v(msg: String) {
-        v("LogUtil", msg)
+        v(GLOBAL_TAG, msg)
     }
 
     fun v(tagName: String, msg: String) {
@@ -102,7 +110,7 @@ object XLog {
     }
 
     fun d(msg: String) {
-        d("LogUtil", msg)
+        d(GLOBAL_TAG, msg)
     }
 
     fun d(tagName: String, msg: String) {
@@ -125,7 +133,7 @@ object XLog {
     }
 
     fun i(msg: String) {
-        i("LogUtil", msg)
+        i(GLOBAL_TAG, msg)
     }
 
     fun i(tagName: String, msg: String) {
@@ -148,7 +156,7 @@ object XLog {
     }
 
     fun w(msg: String) {
-        w("LogUtil", msg)
+        w(GLOBAL_TAG, msg)
     }
 
     fun w(tagName: String, msg: String) {
@@ -171,7 +179,7 @@ object XLog {
     }
 
     fun e(msg: String) {
-        e("LogUtil", msg)
+        e(GLOBAL_TAG, msg)
     }
 
     fun e(tagName: String, msg: String) {
@@ -226,7 +234,7 @@ object XLog {
      * @param unicode 全为 Unicode 的字符串
      * @return
      */
-    fun unicode2String(unicode: String): String {
+   private fun unicode2String(unicode: String): String {
         val string = StringBuffer()
         val hex = unicode.split("\\\\u".toRegex()).dropLastWhile { it.isEmpty() }
             .toTypedArray()
@@ -239,8 +247,8 @@ object XLog {
         return string.toString()
     }
 
-    private fun checkLogFile(level: String, tagName: String, msg: String){
-        if (rootLogPath.isBlank() || logPath.isBlank()){
+    private fun checkLogFile(level: String, tagName: String, msg: String) {
+        if (rootLogPath.isBlank() || logPath.isBlank()) {
             return
         }
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
