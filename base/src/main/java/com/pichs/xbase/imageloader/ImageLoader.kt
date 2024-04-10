@@ -152,6 +152,10 @@ class ImageLoader {
             return this
         }
 
+        /**
+         * 加载图片到ImageView
+         * @param iv ImageView
+         */
         @SuppressLint("CheckResult")
         fun into(iv: ImageView) {
             val requestOptions = RequestOptions()
@@ -202,6 +206,12 @@ class ImageLoader {
             }
         }
 
+
+        /**
+         * 加载图片到view
+         * @param view  ImageView
+         * @param target 回调返回bitmap 当时普通图片时有效 gif无效，回调此方法不为null时，不会加载到ImageView上，需要手动处理
+         */
         @SuppressLint("CheckResult")
         fun into(view: View, target: ((Bitmap?) -> Unit)? = null) {
             val requestOptions = RequestOptions()
@@ -275,6 +285,69 @@ class ImageLoader {
                 }
             }
         }
+
+        /**
+         * 将图片加载到view的背景上
+         * @param view View 任何控件
+         */
+        fun intoBackground(view: View) {
+            val requestOptions = RequestOptions()
+            if (placeHolder != 0) {
+                requestOptions.placeholder(placeHolder)
+            }
+            if (errorHolder != 0) {
+                requestOptions.error(errorHolder)
+            }
+            if (overrideHeight != 0 && overrideWidth != 0) {
+                requestOptions.override(overrideWidth, overrideHeight)
+            }
+            if (cropType == 1) {
+                requestOptions.centerCrop()
+            } else if (cropType == 2) {
+                requestOptions.circleCrop()
+            } else if (cropType == 3) {
+                requestOptions.fitCenter()
+            } else if (cropType == 4) {
+                requestOptions.centerInside()
+            }
+
+            // 是否跳过内存缓存
+            requestOptions.skipMemoryCache(skipMemoryCache)
+            if (diskCacheStrategy == DiskCacheStrategy.NONE) {
+                requestOptions.diskCacheStrategy(com.bumptech.glide.load.engine.DiskCacheStrategy.NONE)
+            } else if (diskCacheStrategy == DiskCacheStrategy.RESULT) {
+                requestOptions.diskCacheStrategy(com.bumptech.glide.load.engine.DiskCacheStrategy.RESOURCE)
+            } else if (diskCacheStrategy == DiskCacheStrategy.AUTO) {
+                requestOptions.diskCacheStrategy(com.bumptech.glide.load.engine.DiskCacheStrategy.AUTOMATIC)
+            } else if (diskCacheStrategy == DiskCacheStrategy.SOURCE) {
+                requestOptions.diskCacheStrategy(com.bumptech.glide.load.engine.DiskCacheStrategy.DATA)
+            } else {
+                requestOptions.diskCacheStrategy(com.bumptech.glide.load.engine.DiskCacheStrategy.ALL)
+            }
+            if (timeout > 0) {
+                requestOptions.timeout(timeout)
+            }
+            if (dontAnimate) {
+                requestOptions.dontAnimate()
+            } else if (useAnimationPool) {
+                requestOptions.useAnimationPool(true)
+            }
+
+            Glide.with(view).load(url).apply(requestOptions).into(object : CustomViewTarget<View, Drawable>(view) {
+                override fun onLoadFailed(errorDrawable: Drawable?) {
+                    view.background = errorDrawable
+                }
+
+                override fun onResourceReady(resource: Drawable, transition: Transition<in Drawable>?) {
+                    view.background = resource
+                }
+
+                override fun onResourceCleared(placeholder: Drawable?) {
+                    view.background = placeholder
+                }
+            })
+        }
+
     }
 
     companion object {

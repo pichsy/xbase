@@ -2,7 +2,7 @@ package com.pichs.xbase.api
 
 import com.google.gson.Gson
 import com.pichs.xbase.map.DoubleKeyMap
-import com.pichs.xbase.utils.XLog
+import com.pichs.xbase.xlog.XLog
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -56,7 +56,7 @@ class RetrofitFactory {
             }
             addInterceptor(
                 HttpLoggingInterceptor { message ->
-                    XLog.d("http=> $message")
+                    XLog.d("http=>", message)
                 }.setLevel(HttpLoggingInterceptor.Level.BODY)
             )
         }.build()

@@ -122,7 +122,7 @@ object XLog {
                 if (strLength > end) {
                     Log.d(tagName + i, msg.substring(start, end))
                     start = end
-                    end = end + LOG_MAXLENGTH
+                    end += LOG_MAXLENGTH
                 } else {
                     Log.d(tagName + i, msg.substring(start, strLength))
                     break
@@ -145,7 +145,7 @@ object XLog {
                 if (strLength > end) {
                     Log.i(tagName + i, msg.substring(start, end))
                     start = end
-                    end = end + LOG_MAXLENGTH
+                    end += LOG_MAXLENGTH
                 } else {
                     Log.i(tagName + i, msg.substring(start, strLength))
                     break
@@ -168,7 +168,7 @@ object XLog {
                 if (strLength > end) {
                     Log.w(tagName + i, msg.substring(start, end))
                     start = end
-                    end = end + LOG_MAXLENGTH
+                    end += LOG_MAXLENGTH
                 } else {
                     Log.w(tagName + i, msg.substring(start, strLength))
                     break
@@ -191,7 +191,7 @@ object XLog {
                 if (strLength > end) {
                     Log.e(tagName + i, msg.substring(start, end))
                     start = end
-                    end = end + LOG_MAXLENGTH
+                    end += LOG_MAXLENGTH
                 } else {
                     Log.e(tagName + i, msg.substring(start, strLength))
                     break

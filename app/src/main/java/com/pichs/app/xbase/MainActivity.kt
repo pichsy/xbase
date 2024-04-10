@@ -48,7 +48,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
 
         ImageLoader.with()
             .load("https://img0.baidu.com/it/u=2335072147,3242329848&fm=253&fmt=auto&app=138&f=JPEG?w=500&h=500")
-            .into(binding.ivMmm)
+            .intoBackground(binding.ivMmm)
 
         ImageLoader.with()
             .load("https://img2.baidu.com/it/u=3170243357,3097706939&fm=253&fmt=auto&app=120&f=JPEG?w=1280&h=800")

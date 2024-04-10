@@ -68,7 +68,7 @@
             android:id="@+id/iv_mmm"
             android:layout_width="100dp"
             android:layout_height="100dp"
-            android:src="#f00" />
+            />
 
 
         <androidx.appcompat.widget.AppCompatImageView
