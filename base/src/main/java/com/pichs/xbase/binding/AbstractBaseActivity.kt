@@ -16,6 +16,7 @@ abstract class AbstractBaseActivity : AppCompatActivity(), IStackChild {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        onAddActivity()
         mActivity = this
         beforeOnCreate(savedInstanceState)
         val rootView = getContentView()
@@ -53,8 +54,8 @@ abstract class AbstractBaseActivity : AppCompatActivity(), IStackChild {
     }
 
     override fun onDestroy() {
-        super.onDestroy()
         onRemoveActivity()
+        super.onDestroy()
     }
 
     override fun onResume() {
