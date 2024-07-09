@@ -97,7 +97,7 @@ class StackManager private constructor() : IStackContainer {
     fun exitApp() {
         for (i in mStackList.indices) {
             if (mStackList[i] is Activity) {
-                (mStackList[i] as Activity?)!!.finish()
+                (mStackList[i] as Activity?)?.finish()
             }
         }
     }

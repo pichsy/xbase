@@ -21,6 +21,9 @@ if (secretPropsFile.exists()) {
     println "No props file, loading env vars"
 }
 
+println("输出 local.properties ossrhUsername = $ossrhUsername ossrhPassword = $ossrhPassword")
+println("输出 local.properties signing.secretKeyRingFile = ${ext.get("signing.secretKeyRingFile")}")
+
 //打包main目录下代码和资源的 task
 tasks.register('generateSourcesJar', Jar) {
     from "${projectDir}/src/main/java"
@@ -30,6 +33,7 @@ tasks.register('generateSourcesJar', Jar) {
 }
 
 def artifactFilePath = "${buildDir}/${PUBLISH_FILE_NAME}"
+println("输出 local.properties artifactFilePath = ${artifactFilePath}")
 
 publishing {
     publications {
@@ -99,10 +103,9 @@ publishing {
 
             def releasesRepoUrl = "https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/"
             def snapshotsRepoUrl = "https://s01.oss.sonatype.org/content/repositories/snapshots/"
-            // You only need this if you want to publish snapshots, otherwise just set the URL
-            // to the release repo directly
+//            // You only need this if you want to publish snapshots, otherwise just set the URL
+//            // to the release repo directly
             url = version.endsWith('SNAPSHOT') ? snapshotsRepoUrl : releasesRepoUrl
-
             // The username and password we've fetched earlier
             credentials {
                 username ossrhUsername
