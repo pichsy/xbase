@@ -21,19 +21,15 @@ if (secretPropsFile.exists()) {
     println "No props file, loading env vars"
 }
 
-println("输出 local.properties ossrhUsername = $ossrhUsername ossrhPassword = $ossrhPassword")
-println("输出 local.properties signing.secretKeyRingFile = ${ext.get("signing.secretKeyRingFile")}")
-
 //打包main目录下代码和资源的 task
 tasks.register('generateSourcesJar', Jar) {
     from "${projectDir}/src/main/java"
     exclude "**/R.class"
     exclude "**/BuildConfig.class"
-    classifier 'sources'
+    archiveClassifier.set('sources')
 }
 
 def artifactFilePath = "${buildDir}/${PUBLISH_FILE_NAME}"
-println("输出 local.properties artifactFilePath = ${artifactFilePath}")
 
 publishing {
     publications {
@@ -95,27 +91,31 @@ publishing {
         }
     }
     repositories {
-        // The repository to publish to, Sonatype/MavenCentral
         maven {
-            // This is an arbitrary name, you may also use "mavencentral" or
-            // any other name that's descriptive for you
-            name = PUBLISH_NAME
-
-            def releasesRepoUrl = "https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/"
-            def snapshotsRepoUrl = "https://s01.oss.sonatype.org/content/repositories/snapshots/"
+            url = layout.buildDirectory.dir('staging-deploy')
+        }
+        // The repository to publish to, Sonatype/MavenCentral
+//        maven {
+//            // This is an arbitrary name, you may also use "mavencentral" or
+//            // any other name that's descriptive for you
+//            name = PUBLISH_NAME
+//
+//            def releasesRepoUrl = "https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/"
+//            def snapshotsRepoUrl = "https://s01.oss.sonatype.org/content/repositories/snapshots/"
 //            // You only need this if you want to publish snapshots, otherwise just set the URL
 //            // to the release repo directly
-            url = version.endsWith('SNAPSHOT') ? snapshotsRepoUrl : releasesRepoUrl
-            // The username and password we've fetched earlier
-            credentials {
-                username ossrhUsername
-                password ossrhPassword
-            }
-        }
+//            url = version.endsWith('SNAPSHOT') ? snapshotsRepoUrl : releasesRepoUrl
+//
+//            // The username and password we've fetched earlier
+//            credentials {
+//                username ossrhUsername
+//                password ossrhPassword
+//            }
+//        }
     }
+
 }
 
 signing {
     sign publishing.publications
 }
-

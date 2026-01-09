@@ -11,6 +11,7 @@
         android:layout_height="match_parent"
         android:gravity="center"
         android:orientation="vertical"
+        android:paddingTop="56dp"
         app:xp_childHorizontalSpacing="16dp"
         app:xp_childVerticalSpacing="16dp"
         tools:context=".MainActivity">
@@ -57,18 +58,17 @@
             android:text="连击事件"
             android:textAllCaps="false" />
 
-        <com.pichs.xwidget.cardview.XCardImageView
+        <com.pichs.xwidget.roundview.XOvalImageView
             android:id="@+id/iv_img"
             android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:src="#fff"
-            app:xp_radius="50dp" />
+            android:layout_height="50dp"
+            android:src="@color/srb_golden_stars" />
 
-        <ImageView
+        <com.pichs.xwidget.view.XImageView
             android:id="@+id/iv_mmm"
             android:layout_width="100dp"
-            android:layout_height="100dp"
-            />
+            android:background="#00f"
+            android:layout_height="100dp" />
 
 
         <androidx.appcompat.widget.AppCompatImageView
