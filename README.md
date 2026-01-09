@@ -25,7 +25,7 @@
 
 ### gradle引入
 
-最新版本：[![Maven Central](https://img.shields.io/maven-metadata/v.svg?label=maven-central&metadataUrl=https%3A%2F%2Frepo1.maven.org%2Fmaven2%2Fcom%2Fgitee%2Fpichs%2Fdownloader%2Fmaven-metadata.xml)](https://search.maven.org/artifact/com.gitee.pichs/xbase) [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
+最新版本：[![Maven Central](https://img.shields.io/maven-metadata/v.svg?label=maven-central&metadataUrl=https%3A%2F%2Frepo1.maven.org%2Fmaven2%2Fcom%2Fgitee%2Fpichs%2Fxbase%2Fmaven-metadata.xml)](https://search.maven.org/artifact/com.gitee.pichs/xbase)
 
             implementation 'com.gitee.pichs:xbase:3.5.1'
 
