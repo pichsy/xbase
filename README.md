@@ -27,7 +27,7 @@
 
 最新版本：[![Maven Central](https://img.shields.io/maven-metadata/v.svg?label=maven-central&metadataUrl=https%3A%2F%2Frepo1.maven.org%2Fmaven2%2Fcom%2Fgitee%2Fpichs%2Fxbase%2Fmaven-metadata.xml)](https://search.maven.org/artifact/com.gitee.pichs/xbase)
 
-            implementation 'com.gitee.pichs:xbase:3.5.1'
+            implementation 'com.gitee.pichs:xbase:3.6.0'
 
 ### 第三方库的引入（必须）
 
