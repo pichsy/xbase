@@ -10,7 +10,7 @@ import com.pichs.xbase.stack.IStackChild
  * 基于ViewBinding 实现的基类
  * 使用了ViewBinding的基类
  */
-abstract class BindingActivity<ViewBinder : ViewBinding> : AbstractBaseActivity(), IStackChild {
+abstract class BindingActivity<ViewBinder : ViewBinding> : AbstractBaseActivity() {
 
     protected lateinit var binding: ViewBinder
 
