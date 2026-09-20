@@ -6,8 +6,6 @@ set -e
 PROJECT_ROOT="$(cd "$(dirname "$0")" && pwd)"
 LOCAL_PROPERTIES="$PROJECT_ROOT/local.properties"
 GRADLE_PROPERTIES="$PROJECT_ROOT/gradle.properties"
-MODULE_NAME="base"
-BUILD_DIR="$PROJECT_ROOT/$MODULE_NAME/build/staging-deploy"
 
 # 读取local.properties指定字段
 function getProperty() {
@@ -18,6 +16,11 @@ function getProperty() {
 function getGradleProperty() {
     grep "^$1=" "$GRADLE_PROPERTIES" | cut -d'=' -f2-
 }
+
+MODULE_NAME=$(getGradleProperty "PUBLISH_NAME")
+BUILD_DIR="$PROJECT_ROOT/$MODULE_NAME/build/staging-deploy"
+
+echo "开始编译 获取参数：MODULE_NAME=${MODULE_NAME}, BUILD_DIR=${BUILD_DIR}"
 
 # 获取Token和版本号
 TOKEN=$(getProperty "sonatype.token")
